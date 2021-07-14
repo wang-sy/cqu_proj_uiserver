@@ -1,0 +1,10 @@
+# Third party package.
+node_modules
+# for mac os.
+.DS_Store
+# idea config file.
+.idea
+# vscode config file.
+.vscode
+# compiled static file.
+dist
