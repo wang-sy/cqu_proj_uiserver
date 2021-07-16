@@ -6,17 +6,19 @@
         <a-card title="订单列表" class="card_item"> 
             TODO(zhaoyingkai): 实现订单组件.
         </a-card>
-        <a-card title="购物车" class="card_item"> 
-            TODO(wangsaiyu): 实现购物车组件.
-        </a-card>
+        <ShoppingCart class="card_item"></ShoppingCart>
     </main>
 </template>
 
 
 <script>
 
+import ShoppingCart from "../components/ShoppingCart"
+
 export default {
-    
+    components: {
+        ShoppingCart
+    }
 }
 
 </script>
