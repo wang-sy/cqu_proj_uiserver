@@ -121,7 +121,8 @@ export default {
       loadingMore: false,
       showLoadingMore: true,
       list_completed: list_completed,
-      list_incompleted: list_incompleted
+      list_incompleted: list_incompleted,
+      activeKey: 1
     };
   },
   methods: {
