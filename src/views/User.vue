@@ -18,11 +18,6 @@ export default {
         ShoppingCart,
         OrderList
     },
-    data(){
-        return {
-            collapsed: false,
-        }
-    }
 }
 
 </script>
