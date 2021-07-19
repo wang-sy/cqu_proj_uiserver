@@ -1,17 +1,4 @@
 <template>
-<<<<<<< HEAD
-
-</template>
-
-<script>
-export default {
-  name: "ShoppingCart"
-}
-</script>
-
-<style scoped>
-
-=======
     <a-card title="购物车">
         <a-list item-layout="horizontal" :data-source="commoditys">
             <a-list-item
@@ -154,5 +141,4 @@ export default {
     display: flex;
     width: 100%;
 }
->>>>>>> ce81911a157cf7a666438e7a512d51b84c0e1a49
 </style>
