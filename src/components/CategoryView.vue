@@ -5,7 +5,7 @@
         <a class="MoreButton">更多商品</a>
         <a-divider />
         <!-- good list -->
-        <a-row :gutter="[16,16]">
+        <a-row :gutter="[32,32]">
             <a-col v-for="(item, index) in goods" :key="index" :span="6">
                 <GoodView
                     :id="item.id"

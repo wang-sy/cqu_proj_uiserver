@@ -8,16 +8,17 @@
                 'background-color: #f9f9f9f9' : ''"
             >
                 <div style="width: 5%">
+                    ·
                     <a-checkbox v-model="item.selected" ></a-checkbox>
                 </div>
-                <div style="width: 65%">
+                <div style="width: 60%">
                     <a-list-item-meta
                         :description="item.description"
                     >
                         <a
                             slot="title"
                             href="https://www.antdv.com/"
-                            style="font-size: 1.5em"
+                            style="font-size: 1.2em"
                         >
                             {{ item.name }}
                         </a>
@@ -30,23 +31,24 @@
                 </div>
                 <div style="width: 30%">
                     <!-- price -->
-                    <h3 style="">
+                    <h3 style="font-size: 0.5em">
                         单价：¥ {{ item.pricePerOne }}
                     </h3>
                     <!-- counter -->
-                    <h3 style="">
+                    <h3 style="font-size: 0.5em">
                         数量：
                         <a-input
-                            style="width: 30%"
+                            style="width: 20%"
                             v-model="item.number"
+                            size="small"
                             @change="changeNumber(item)"
                         />
                     </h3>
-                    <h3>
+                    <h3 style="font-size: 0.5em">
                         总价：¥ {{ item.totalPrice }}
                     </h3>
                 </div>
-                 <a-icon solt="extra" type="delete" @click="deleteItem(index)"/>
+                <a-icon style="position: related; right: 100px; width: 5%" type="delete" @click="deleteItem(index)"/>
             </a-list-item>
         </a-list>
         <a-button

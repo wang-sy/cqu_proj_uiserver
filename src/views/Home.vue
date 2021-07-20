@@ -48,14 +48,14 @@ let categoryDatas = {
             description: "绝地求生、英雄联盟，高画质高帧率畅玩",
             figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
             price: 47.5,
-            id: 1,
+            id: 2,
         },
         {
             name: '七彩虹3070显卡',
             description: "绝地求生、英雄联盟，高画质高帧率畅玩",
             figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
             price: 47.5,
-            id: 1,
+            id: 3,
         }
     ],
 }
