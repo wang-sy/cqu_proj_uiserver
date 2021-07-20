@@ -1,10 +1,10 @@
 <template>
     <a-card title="购物车">
         <a-list item-layout="horizontal" :data-source="commoditys">
-            <a-list-item 
-                slot="renderItem" 
-                slot-scope="item, index" 
-                :style=" item.selected ? 
+            <a-list-item
+                slot="renderItem"
+                slot-scope="item, index"
+                :style=" item.selected ?
                 'background-color: #f9f9f9f9' : ''"
             >
                 <div style="width: 5%">
@@ -14,34 +14,34 @@
                     <a-list-item-meta
                         :description="item.description"
                     >
-                        <a 
-                            slot="title" 
+                        <a
+                            slot="title"
                             href="https://www.antdv.com/"
                             style="font-size: 1.5em"
                         >
                             {{ item.name }}
                         </a>
-                        <img 
-                            slot="avatar" 
-                            :src="item.figure" 
+                        <img
+                            slot="avatar"
+                            :src="item.figure"
                             style="width: 110px; height: 82px;"
                         />
                     </a-list-item-meta>
                 </div>
                 <div style="width: 30%">
                     <!-- price -->
-                    <h3 style=""> 
+                    <h3 style="">
                         单价：¥ {{ item.pricePerOne }}
                     </h3>
                     <!-- counter -->
-                    <h3 style=""> 
+                    <h3 style="">
                         数量：
-                        <a-input 
-                            style="width: 30%" 
+                        <a-input
+                            style="width: 30%"
                             v-model="item.number"
                             @change="changeNumber(item)"
                         />
-                    </h3> 
+                    </h3>
                     <h3>
                         总价：¥ {{ item.totalPrice }}
                     </h3>
@@ -49,8 +49,8 @@
                  <a-icon solt="extra" type="delete" @click="deleteItem(index)"/>
             </a-list-item>
         </a-list>
-        <a-button 
-            type="primary" 
+        <a-button
+            type="primary"
             style="left: 20%; width: 60%; margin-top: 1vh"
             size="large"
             @click="submit"
