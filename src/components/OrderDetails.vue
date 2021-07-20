@@ -23,17 +23,14 @@
                 <a-descriptions-item label="订单编号">
                     {{ list_data.list_id }}
                 </a-descriptions-item>
-                <a-descriptions-item label="商品信息">
-                    <a href="https://www.antdv.com/"> {{ list_data.name }} </a>
-                </a-descriptions-item>
-                <a-descriptions-item label="描述">
-                    {{ list_data.description }}
-                </a-descriptions-item>
                 <a-descriptions-item label="订单价格">
-                    ￥ {{ list_data.totalPrice }}
+                    ￥{{ list_data.totalPrice }}
                 </a-descriptions-item>
                 <a-descriptions-item label="创建时间">
                     2020.2.2
+                </a-descriptions-item>
+                <a-descriptions-item label="商品信息">
+                    <a href="https://www.antdv.com/"> {{ list_data.name }} </a>
                 </a-descriptions-item>
             </a-descriptions>
         </div>
