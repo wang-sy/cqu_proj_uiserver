@@ -21,8 +21,8 @@ jobs:
           npm install
           npm run build
       
-      - name: copy file via ssh key
-        uses: appleboy/scp-action@master
+      - name: scp-deployer
+        uses: siva1024/scp-deployer@v1.0
         with:
           host: 114.116.213.123
           username: teapot
