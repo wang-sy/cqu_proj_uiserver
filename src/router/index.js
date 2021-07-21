@@ -15,6 +15,12 @@ const routes = [
     name: 'User',
     component: () => import("../views/User")
   },
+  {
+    //商品搜索展示
+    path: '/goodslist',
+    name: 'GoodsList',
+    component: () => import("../views/GoodsList")
+  }
 ]
 
 const router = new VueRouter({
