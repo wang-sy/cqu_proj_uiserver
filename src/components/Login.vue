@@ -26,19 +26,22 @@ export default {
     return {
       phone: '',
       password: '',
-      visible: true
+      visible: false
     }
   },
   methods: {
-    async login () {
-      this.visible = false
+    login: function () {
+      let _this = this
       axios.post('http://localhost:8090/user/login', {
         phone: this.phone,
         password: this.password
       })
       .then(function (response) {
+        console.log(response)
         if (response.data.code === -1) {
           alert('登录失败，请重试')
+        } else {
+          _this.visible = false
         }
       })
       .catch(function (error) {
@@ -53,6 +56,15 @@ export default {
   mounted() {
     EventBus.$on('on_login', () => {
       this.visible = true
+    })
+  },
+  beforeCreate() {
+    let _this = this
+    axios.get('http://localhost:8090/user/getInfo')
+      .then(function (response) {
+      _this.visible = response.data.code !== 200;
+    }).catch(function (error) {
+      _this.visible = true
     })
   }
 };
