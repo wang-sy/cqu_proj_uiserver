@@ -77,7 +77,7 @@ export default {
       let _this = this
       axios.post('http://localhost:8090/user/register', {
         phone: this.phone, password: this.password, username: this.uname,
-        email: this.email, address: this.address
+        email: this.email, address: [this.address]
       })
       .then(function (response) {
         console.log(response)

@@ -58,13 +58,13 @@ export default {
       .then(function (response) {
         console.log(response)
         if (response.data.code === -1) {
-          alert('修改失败，请检查原密码是否正确')
+          alert(response.data.msg)
         } else {
           _this.visible = false
           _this.old_password = ''
           _this.new_password = ''
           _this.new_password_ = ''
-          alert('修改成功')
+          alert(response.data.msg)
         }
       })
       .catch(function (error) {

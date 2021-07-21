@@ -28,7 +28,6 @@ export default {
       visible: false,
       username: '',
       email: '',
-      address: '',
       columns: [
         {title: '收货地址', align: 'center', dataIndex: 'address', key: 'address', scopedSlots: {customRender: 'address'}},
         {width: 100, dataIndex: 'delete', align: 'center', fixed: 'right', scopedSlots: {customRender: 'delete'}}
@@ -50,16 +49,14 @@ export default {
       this.visible = false
     },
     upload_address: function () {
-      this.address = ''
-      console.log(this.addresses)
+      let addresses_ = []
       for (var i=0; i<this.addresses.length; i++) {
-        if (i === 0) this.address += this.addresses[i].address;
-        else this.address = this.address + '#^' + this.addresses[i].address;
+        addresses_.push(this.addresses[i].address)
       }
       axios.post('http://localhost:8090/user/updateInfo', {
         username: this.username,
         email: this.email,
-        address: this.address
+        address: addresses_
       }).then (function (response) {
         console.log(response)
       }).catch(function (error) {
@@ -69,16 +66,18 @@ export default {
   },
   mounted() {
     EventBus.$on('modify_address', ()=>{
-      this.visible = true
       let _this = this
       axios.get('http://localhost:8090/user/getInfo')
         .then(function (response) {
+          if (response.data.code === -1) {
+            alert(response.data.msg)
+            return
+          }
+          _this.visible = true
           _this.email = response.data.data.email
           _this.username = response.data.data.username
-          _this.address = response.data.data.address
+          let addresses_ = response.data.data.address
           _this.addresses = []
-          if (_this.address === null) return
-          let addresses_ = _this.address.split('#^')
           for (var i=0; i<addresses_.length; i++) {
             _this.addresses.push({'address': addresses_[i]})
         }
