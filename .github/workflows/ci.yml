@@ -16,6 +16,11 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.3.0
 
+      - name: run npm build
+        run: |
+          npm install
+          npm run build
+      
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
