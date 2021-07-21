@@ -16,6 +16,11 @@ const routes = [
     component: () => import("../views/User")
   },
   {
+    //商品搜索展示
+    path: '/goodslist',
+    name: 'GoodsList',
+    component: () => import("../views/GoodsList")
+  }
     // 商品详情页
     path: '/good',
     name: 'Good',
