@@ -34,8 +34,6 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
-import axios from 'axios'
 
 
 export default {
@@ -75,17 +73,15 @@ export default {
         return
       }
       let _this = this
-      axios.post('http://localhost:8090/user/register', {
-        phone: this.phone, password: this.password, username: this.uname,
-        email: this.email, address: [this.address]
+      this.$axios.post(this.$base_url + '/user/register', {
+        phone: this.phone, password: this.password, username: this.uname, email: this.email, address: [this.address]
       })
       .then(function (response) {
-        console.log(response)
         if (response.data.code === -1) {
           alert('用户已存在')
         } else {
           _this.visible = false
-          EventBus.$emit('on_login')
+          this.$event_bus.$emit('on_login')
           alert('注册成功')
         }
       })
@@ -95,12 +91,11 @@ export default {
     },
     login: function () {
       this.visible = false
-      EventBus.$emit('on_login')
+      this.$event_bus.$emit('on_login')
     }
   },
   mounted() {
-    EventBus.$on('on_register', () => {
-      console.log('register')
+    this.$event_bus.$on('on_register', () => {
       this.visible = true
     })
   }

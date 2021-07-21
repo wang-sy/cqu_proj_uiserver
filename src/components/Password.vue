@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
-import axios from "axios";
 
 export default {
   name: "Password",
@@ -52,7 +50,7 @@ export default {
       }
       let _this = this
       this.error = false
-      axios.post('http://localhost:8090/user/updatePwd', {
+      this.$axios.post(this.$base_url + '/user/updatePwd', {
         oldPwd: this.old_password, newPwd: this.new_password
       })
       .then(function (response) {
@@ -73,7 +71,7 @@ export default {
     }
   },
   mounted() {
-    EventBus.$on('modify_password', ()=>{
+    this.$event_bus.$on('modify_password', ()=>{
       this.visible = true
     })
   },

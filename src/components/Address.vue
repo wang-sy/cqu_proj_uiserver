@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
-import axios from 'axios'
 
 export default {
   name: "Address",
@@ -53,7 +51,7 @@ export default {
       for (var i=0; i<this.addresses.length; i++) {
         addresses_.push(this.addresses[i].address)
       }
-      axios.post('http://localhost:8090/user/updateInfo', {
+      this.$axios.post(this.$base_url + '/user/updateInfo', {
         username: this.username,
         email: this.email,
         address: addresses_
@@ -65,9 +63,9 @@ export default {
     }
   },
   mounted() {
-    EventBus.$on('modify_address', ()=>{
+    this.$event_bus.$on('modify_address', ()=>{
       let _this = this
-      axios.get('http://localhost:8090/user/getInfo')
+      this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
           if (response.data.code === -1) {
             alert(response.data.msg)

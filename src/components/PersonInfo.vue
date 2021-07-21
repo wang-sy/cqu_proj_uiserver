@@ -13,11 +13,9 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
 import Address from './Address'
 import ModifyPersonInfo from './ModifyPersonInfo'
 import Password from './Password'
-import axios from "axios";
 
 export default {
   name: 'PersonInfo',
@@ -33,21 +31,24 @@ export default {
   },
   methods: {
     modify_person_info: function () {
-      EventBus.$emit('modify_person_info')
+      this.$event_bus.$emit('modify_person_info')
     },
     modify_address: function () {
-      EventBus.$emit('modify_address')
+      this.$event_bus.$emit('modify_address')
     },
     modify_password: function () {
-      EventBus.$emit('modify_password')
+      this.$event_bus.$emit('modify_password')
     },
     logout: function () {
       let _this = this
-      axios.get('http://localhost:8090/user/logout')
+      this.$axios.get(this.$base_url + '/user/logout')
       .then(function (response) {
-        if (response.data === 'logout') {
+        if (response.data.code === 200) {
           _this.username = '未设置用户名'
           alert('注销成功')
+          location.reload()
+        } else {
+          alert('注销失败')
         }
       })
       .catch(function (error) {
@@ -57,14 +58,17 @@ export default {
   },
   mounted() {
     let _this = this
-    axios.get('http://localhost:8090/user/getInfo')
+    this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
           _this.username = response.data.data.username
       }).catch(function (error) {
         // alert('请先登录')
       })
-    EventBus.$on('update_username', (new_name) => {
+    this.$event_bus.$on('update_username', (new_name) => {
       this.username = new_name
+    })
+    this.$event_bus.$on('login_success', (name) => {
+        this.username = name
     })
   }
 }

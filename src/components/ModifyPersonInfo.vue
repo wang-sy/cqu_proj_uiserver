@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
-import axios from "axios"
 
 export default {
   name: "ModifyPersonInfo",
@@ -32,7 +30,7 @@ export default {
       visible: false,
       phone: '',
       email: '',
-      address: null,
+      address: [],
       username: ''
     }
   },
@@ -41,7 +39,7 @@ export default {
       this.visible = false
     },
     modify: function () {
-      axios.post('http://localhost:8090/user/updateInfo', {
+      this.$axios.post(this.$base_url + '/user/updateInfo', {
         username: this.username,
         email: this.email,
         address: this.address
@@ -50,14 +48,14 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
-      EventBus.$emit('update_username', this.username)
+      this.$event_bus.$emit('update_username', this.username)
     }
   },
   mounted() {
-    EventBus.$on('modify_person_info', ()=>{
+    this.$event_bus.$on('modify_person_info', ()=>{
       this.visible = true
       let _this = this
-      axios.get('http://localhost:8090/user/getInfo')
+      this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
         _this.phone = response.data.data.phone
         _this.email = response.data.data.email

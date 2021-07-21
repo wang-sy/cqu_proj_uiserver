@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import {EventBus} from '../event-bus'
-import axios from "axios"
 
 export default {
   name: 'Login',
@@ -32,35 +30,34 @@ export default {
   methods: {
     login: function () {
       let _this = this
-      axios.post('http://localhost:8090/user/login', {
+      this.$axios.post(this.$base_url + '/user/login', {
         phone: this.phone,
         password: this.password
       })
       .then(function (response) {
-        console.log(response)
         if (response.data.code === -1) {
           alert('登录失败，请重试')
         } else {
           _this.visible = false
+          _this.$event_bus.$emit('login_success', response.data.data.username)
         }
       })
       .catch(function (error) {
-        alert('登录失败，请重试')
       })
     },
     register: function () {
       this.visible = false
-      EventBus.$emit('on_register')
+      this.$event_bus.$emit('on_register')
     }
   },
   mounted() {
-    EventBus.$on('on_login', () => {
+    this.$event_bus.$on('on_login', () => {
       this.visible = true
     })
   },
   beforeCreate() {
     let _this = this
-    axios.get('http://localhost:8090/user/getInfo')
+    this.$axios.get(this.$base_url + '/user/getInfo')
       .then(function (response) {
       _this.visible = response.data.code !== 200;
     }).catch(function (error) {
