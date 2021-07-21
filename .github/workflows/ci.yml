@@ -24,4 +24,4 @@ jobs:
       
       - name: deployment
         run: |
-          echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/id_rsa
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
