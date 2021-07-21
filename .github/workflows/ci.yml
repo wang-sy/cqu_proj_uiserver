@@ -16,10 +16,12 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.3.0
 
-      - name: run npm build
-        run: |
-          npm install
-          npm run build
-          ls
-          echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/deploy_key
-          scp -P 222 -r ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: 114.116.213.123
+          username: teapot
+          port: 222
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: ./dist/*
+          target: ~/wwwroot/wespace/
