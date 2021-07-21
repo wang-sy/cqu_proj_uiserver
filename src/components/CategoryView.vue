@@ -2,7 +2,7 @@
     <main>
         <b class="Title">{{title}}</b>
         <!-- todo(wangsaiyu): add this.$router.push(productList, categoryID=id) -->
-        <a class="MoreButton">更多商品</a>
+        <a class="MoreButton" @click="toGoodListPage">更多商品</a>
         <a-divider />
         <!-- good list -->
         <a-row :gutter="[32,32]">
@@ -31,6 +31,16 @@ export default {
         categoryID: Number,
         goods: Array
     },
+    methods: {
+        toGoodListPage() {
+            this.$router.push({
+                path: '/goodslist',
+                query: {
+                    category: this.categoryID
+                }
+            })
+        }
+    }
 }
 
 </script>

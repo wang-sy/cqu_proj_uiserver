@@ -4,14 +4,18 @@
             slot="cover"
             alt="example"
             :src="figure"
+            @click="toGoodPage()"
         />
-        <a-card-meta :title="name">
+        <a-card-meta>
+            <template slot="title">
+                <a @click="toGoodPage()">{{name}}</a>
+            </template>
             <template slot="description">
                 {{description}}
                 <a-row>
                     <a-col :span="12" style="margin-top: 8px"><b>{{price}} ¥</b></a-col>
                     <a-col :span="12">
-                        <a-button type="dashed" style="width: 100%">立刻购买</a-button>
+                        <a-button type="dashed" style="width: 100%" @click="buy">立刻购买</a-button>
                     </a-col>
                 </a-row>
             </template>
@@ -27,6 +31,19 @@ export default {
         description: String,
         figure: String,
         price: Number
+    },
+    methods: {
+        toGoodPage() {
+            this.$router.push({
+                path: "/good",
+                query: {
+                    id: this.id
+                } 
+            })
+        },
+        buy() {
+            console.log(this.id)
+        }
     }
 }
 

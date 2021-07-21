@@ -3,7 +3,7 @@
         <!-- 走马灯 -->
         <a-carousel autoplay class="Carousel">
             <div v-for="(item, index) in top10Goods" :key="index">
-                <img style="width: 100%" :src="item.src"/>
+                <img style="width: 100%" :src="item.src" @click="toGoodPage(item.id)"/>
             </div>
         </a-carousel>
 
@@ -88,6 +88,16 @@ export default {
                 categoryDatas,
                 categoryDatas
             ],
+        }
+    },
+    methods: {
+        toGoodPage(goodID) {
+            this.$router.push({
+                path: "/good",
+                query: {
+                    id: goodID
+                } 
+            })
         }
     }
 }
