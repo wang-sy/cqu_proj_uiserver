@@ -10,7 +10,7 @@
         <top-bar v-model="collapsed"></top-bar>
       </a-layout-header>
       <a-layout-content
-        :style="{ margin: '24px 16px', padding: '10px', minHeight: '280px' }"
+        :style="{ margin: '10px 10px', padding: '10px', minHeight: '280px' }"
       >
         <router-view></router-view>
       </a-layout-content>

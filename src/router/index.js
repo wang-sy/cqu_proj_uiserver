@@ -15,6 +15,13 @@ const routes = [
     name: 'User',
     component: () => import("../views/User")
   },
+  {
+    // 商品详情页
+    path: '/good',
+    name: 'Good',
+    component: () => import("../views/Good"),
+    props: route => ({ query: route.query.q })
+  },
 ]
 
 const router = new VueRouter({
