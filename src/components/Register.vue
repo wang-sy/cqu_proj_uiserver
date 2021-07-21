@@ -63,7 +63,7 @@ export default {
         return
       } else if (this.password !== this.password_) {
         this.error = true
-        this.error_info = '两次密码输入错误'
+        this.error_info = '两次密码输入不匹配'
         return
       } else if (re.test(this.phone) === false) {
         this.error = true
@@ -74,8 +74,7 @@ export default {
         this.error_info = '密码长度不足六位'
         return
       }
-      this.visible = false
-      EventBus.$emit('on_login')
+      let _this = this
       axios.post('http://localhost:8090/user/register', {
         phone: this.phone, password: this.password, username: this.uname,
         email: this.email, address: this.address
@@ -85,6 +84,8 @@ export default {
         if (response.data.code === -1) {
           alert('用户已存在')
         } else {
+          _this.visible = false
+          EventBus.$emit('on_login')
           alert('注册成功')
         }
       })
