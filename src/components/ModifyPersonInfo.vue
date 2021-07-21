@@ -32,7 +32,7 @@ export default {
       visible: false,
       phone: '',
       email: '',
-      address: '',
+      address: null,
       username: ''
     }
   },
@@ -50,6 +50,7 @@ export default {
       }).catch(function (error) {
         console.log(error)
       })
+      EventBus.$emit('update_username', this.username)
     }
   },
   mounted() {
