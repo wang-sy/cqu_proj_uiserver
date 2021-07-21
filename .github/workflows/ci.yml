@@ -2,6 +2,7 @@ name: CI
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -21,12 +22,7 @@ jobs:
           npm install
           npm run build
       
-      - name: scp-deployer
-        uses: siva1024/scp-deployer@v1.0
-        with:
-          host: 114.116.213.123
-          username: teapot
-          port: 222
-          key: ${{ secrets.DEPLOY_KEY }}
-          source: ./dist/*
-          target: ~/wwwroot/wespace/
+      - name: deployment
+        run: |
+          echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/id_rsa
+          scp -P 222 -r ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
