@@ -27,5 +27,6 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
         run: |
+          sudo apt-get install openssh-clients
           echo "$DEPLOY_KEY" > ./id_rsa
           scp -P 222 -r -i ./id_rsa ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
