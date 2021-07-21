@@ -20,7 +20,8 @@ const routes = [
     path: '/goodslist',
     name: 'GoodsList',
     component: () => import("../views/GoodsList")
-  }
+  },
+  {
     // 商品详情页
     path: '/good',
     name: 'Good',
