@@ -21,12 +21,7 @@ jobs:
           npm install
           npm run build
       
-      - name: Deploy to Staging server
-        uses: easingthemes/ssh-deploy@v2.1.6
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
-          ARGS: "-P 222 -r "
-          REMOTE_HOST: 114.116.213.123
-          REMOTE_USER: teapot
-          SOURCE: './dist/*'
-          TARGET: '~/wwwroot/wespace/'
+      - name: scp deploy
+        run: |
+          echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/deploy_key
+          scp -P 222 -r ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
