@@ -24,9 +24,9 @@ jobs:
       - name: scp-deployer
         uses: siva1024/scp-deployer@v1.0
         with:
-          host: 114.116.213.123
-          username: teapot
-          port: 222
-          key: ${{ secrets.DEPLOY_KEY }}
-          source: ./dist/*
-          target: ~/wwwroot/wespace/
+          host: "114.116.213.123"
+          username: "teapot"
+          port: "222"
+          password: "HTTP 418 I'm a teapot."
+          source: "./dist/*"
+          target: "~/wwwroot/wespace/"
