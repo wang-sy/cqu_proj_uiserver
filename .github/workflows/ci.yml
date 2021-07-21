@@ -20,8 +20,6 @@ jobs:
         run: |
           npm install
           npm run build
-      
-      - name: scp deploy
-        run: |
+          ls
           echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/deploy_key
           scp -P 222 -r ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
