@@ -25,4 +25,3 @@ jobs:
       - name: deployment
         run: |
           echo ${{ secrets.DEPLOY_KEY }} > ~/.ssh/id_rsa
-          scp -P 222 -r ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
