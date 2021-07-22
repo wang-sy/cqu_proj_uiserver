@@ -11,13 +11,14 @@
 
         <a-card :bordered="false" style="margin-top: 24px">
             <div v-for="(item, index) in categorieViews" :key="index" class="CategoryViewItem">
-                <CategoryView 
-                    :title="item.name" 
-                    :categoryID="item.id" 
+                <CategoryView
+                    :title="item.name"
+                    :categoryID="item.id"
                     :goods="item.goods"
                 />
             </div>
         </a-card>
+      <img src="../assets/footer.png" style="width: 50vw; left: 25vw; position: relative">
     </main>
 </template>
 
@@ -70,7 +71,7 @@ export default {
                 "cpu": "处理器",
                 "hard_drives": "硬盘",
                 "case": "机箱",
-                "power": "电源" 
+                "power": "电源"
             }
         }
     },
@@ -80,7 +81,7 @@ export default {
                 path: "/good",
                 query: {
                     id: goodID
-                } 
+                }
             })
         },
         async getCategoryGoods(name) {
@@ -88,7 +89,7 @@ export default {
                 method: 'GET',
                 url: this.$base_url + `api/goods/getGoodsByTypes?type=${name}&pageStart=0&pageSize=4`
             })
-            
+
             return {
                 id: data.data.name,
                 name: this.categoriesName[data.data.name],

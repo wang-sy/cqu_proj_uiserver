@@ -56,7 +56,10 @@ export default {
       let _this = this
       this.$axios.get(this.$base_url + 'api/user/getInfo')
         .then(function (response) {
-        if (response.data.code === -1) return
+        if (response.data.code === -1) {
+          console.log(response.data.msg)
+          return
+        }
         _this.visible = true
         _this.phone = response.data.data.phone
         _this.email = response.data.data.email
