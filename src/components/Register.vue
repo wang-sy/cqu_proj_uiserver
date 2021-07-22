@@ -73,7 +73,7 @@ export default {
         return
       }
       let _this = this
-      this.$axios.post(this.$base_url + '/user/register', {
+      _this.$axios.post(this.$base_url + '/api/user/register', {
         phone: this.phone, password: this.password, username: this.uname, email: this.email, address: [this.address]
       })
       .then(function (response) {
@@ -81,12 +81,12 @@ export default {
           alert('用户已存在')
         } else {
           _this.visible = false
-          this.$event_bus.$emit('on_login')
+          _this.$event_bus.$emit('on_login')
           alert('注册成功')
         }
       })
       .catch(function (error) {
-        alert('注册失败')
+        alert('注册失败' + error)
       })
     },
     login: function () {

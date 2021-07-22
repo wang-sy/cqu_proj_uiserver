@@ -30,7 +30,7 @@ export default {
   methods: {
     login: function () {
       let _this = this
-      this.$axios.post(this.$base_url + '/user/login', {
+      this.$axios.post(this.$base_url + '/api/user/login', {
         phone: this.phone,
         password: this.password
       })
@@ -58,7 +58,7 @@ export default {
   },
   beforeCreate() {
     let _this = this
-    this.$axios.get(this.$base_url + '/user/getInfo')
+    this.$axios.get(this.$base_url + '/api/user/getInfo')
       .then(function (response) {
       _this.visible = response.data.code !== 200;
     }).catch(function (error) {

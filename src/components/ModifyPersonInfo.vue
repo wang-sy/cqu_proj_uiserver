@@ -39,7 +39,7 @@ export default {
       this.visible = false
     },
     modify: function () {
-      this.$axios.post(this.$base_url + '/user/updateInfo', {
+      this.$axios.post(this.$base_url + '/api/user/updateInfo', {
         username: this.username,
         email: this.email,
         address: this.address
@@ -54,7 +54,7 @@ export default {
   mounted() {
     this.$event_bus.$on('modify_person_info', ()=>{
       let _this = this
-      this.$axios.get(this.$base_url + '/user/getInfo')
+      this.$axios.get(this.$base_url + '/api/user/getInfo')
         .then(function (response) {
         if (response.data.code === -1) return
         _this.visible = true
