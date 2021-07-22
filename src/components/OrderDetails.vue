@@ -1,7 +1,7 @@
 <template>
     <a-modal v-model="show" :title="`订单: `+ list_data.orderNum" :footer="null" width="50%">
         <div>
-            <a-steps :current="list_data.statue">
+            <a-steps :current="list_data.status">
                 <a-step title="待付款" />
                 <a-step title="待发货" />
                 <a-step title="运输中" />
