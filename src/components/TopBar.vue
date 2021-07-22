@@ -1,21 +1,32 @@
 <template>
     <div>
-      <div>
-       <a-menu mode="horizontal" :default-selected-keys="['1']" style="margin-left: 5%">
-          <a-menu-item key="1" @click="to_user('/')"> <a-icon type="home"/>主页</a-menu-item>
-          <a-menu-item key="2" @click="to_user('/user')"> <a-icon type="user"/>我的</a-menu-item>
-          <a-input-search placeholder="输入搜索内容" style="width: 30%; margin-left: 18%"
-                          @search="to_search('/goodslist', search_content)" v-model="search_content"/>
-          <a-avatar :src="avatar" style="width: 3.5%; height: 3.5%; margin-left: 18%; margin-bottom: 0.1%"/>
-          <a-popover style="margin-left: 1%">
-            <template slot="content">
-              <p>你好：{{username}}</p>
-            </template>
-            <a-button style="border: white">{{username}}</a-button>
-          </a-popover>
-        </a-menu>
-      </div>
+      <a-layout style="background: white">
+        <a-layout-sider style="background: white; margin-left: 2%;">
+          <img src="../assets/logo.png" width="120%" @click="to_user('/')"/>
+        </a-layout-sider>
+        <a-layout-content style="margin-top: 0.5%; margin-left: 4%">
+         <a-menu mode="horizontal">
+           <a-menu-item key="1" @click="to_user('/user')" style="font-size: 16px">我的</a-menu-item>
+           <a-menu-item key="2" @click="to_goods_list_page('vga')" style="font-size: 16px">显卡</a-menu-item>
+           <a-menu-item key="3" @click="to_goods_list_page('memory')" style="font-size: 16px">内存</a-menu-item>
+           <a-menu-item key="4" @click="to_goods_list_page('motherboard')" style="font-size: 16px">主板</a-menu-item>
+           <a-menu-item key="5" @click="to_goods_list_page('cpu')" style="font-size: 16px">处理器</a-menu-item>
+           <a-menu-item key="6" @click="to_goods_list_page('hard_drives')" style="font-size: 16px">硬盘</a-menu-item>
+           <a-menu-item key="7" @click="to_goods_list_page('case')" style="font-size: 16px">机箱</a-menu-item>
+           <a-menu-item key="8" @click="to_goods_list_page('power')" style="font-size: 16px">电源</a-menu-item>
+            <a-popover style="margin-left: 27%; font-size: 16px">
+              <template slot="content">
+                <p>你好：{{username}}</p>
+              </template>
+              <a-avatar :src="avatar" style="width: 3.5%; height: 3.5%; margin-left: 50%; margin-bottom: 1%"/>
+            </a-popover>
+           <a-input-search placeholder="输入搜索内容" style="width: 15%; margin-left: 1%"
+                                        @search="to_search('/goodslist', search_content)" v-model="search_content"/>
+          </a-menu>
+        </a-layout-content>
+      </a-layout>
     </div>
+
 </template>
 
 <script>
@@ -39,9 +50,13 @@ export default {
         collapsed: Boolean
     },
     methods: {
-      to_home(path) {
-        this.choose = 'home'
-        this.$router.push(path)
+      to_goods_list_page(category) {
+        this.$router.push({
+          path: '/goodslist',
+          query: {
+            category: category
+          }
+        })
       },
       to_user(path) {
         this.choose = 'user'
