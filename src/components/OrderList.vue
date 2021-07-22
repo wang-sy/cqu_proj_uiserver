@@ -209,7 +209,7 @@ export default {
       let _this=this
       axios({
         method: 'POST',
-        url: this.$base_url + `/api/order/searchByCustomerIdDo`,
+        url: this.$base_url + `api/order/searchByCustomerIdDo`,
         data: {}
       }).then((res) => {
         if(res.data.length <= 5){
@@ -225,7 +225,7 @@ export default {
       })
       axios({
         method: 'POST',
-        url: _this.$base_url + `/api/order/searchByCustomerIdUndo`,
+        url: _this.$base_url + `api/order/searchByCustomerIdUndo`,
         data: {}
       }).then((res) => {
         if(res.data.length <= 5){
@@ -246,7 +246,7 @@ export default {
       let _this=this
       axios({
         method: 'POST',
-        url: _this.$base_url+`/api/order/searchByCustomerIdDo`,
+        url: _this.$base_url+`api/order/searchByCustomerIdDo`,
         data: {}
       }).then((res) => {
         _this.list_completed = _this.list_completed.concat(res.data.slice(_this.now_page_completed*5, (_this.now_page_completed+1)*5))
@@ -268,7 +268,7 @@ export default {
       // this.list_incompleted = this.list_incompleted.concat(list_incompleted);
       axios({
         method: 'POST',
-        url: _this.$base_url+`/api/order/searchByCustomerIdUndo`,
+        url: _this.$base_url+`api/order/searchByCustomerIdUndo`,
         data: {}
       }).then((res) => {
         _this.list_incompleted = _this.list_incompleted.concat(res.data.slice(_this.now_page_incompleted*5, (_this.now_page_incompleted+1)*5))
