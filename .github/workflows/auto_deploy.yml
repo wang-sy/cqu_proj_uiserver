@@ -18,6 +18,12 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
+      - name: Setup Chrome
+        run: |
+          sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+          sudo apt-get update -y
+          sudo apt-get install google-chrome -y
+            
       # TODO(ZhaoYingkai=
       - uses: nanasess/setup-chromedriver@master
       
