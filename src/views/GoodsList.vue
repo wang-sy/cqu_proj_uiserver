@@ -144,7 +144,7 @@ export default {
     },
     mounted() {
         let _this = this
-        let catgory = this.$route.query.catgory
+        let catgory = this.$route.query.category
         let search_result = this.$route.query.searchid
         if(search_result) {
             axios({
