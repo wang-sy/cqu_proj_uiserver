@@ -149,7 +149,7 @@ export default {
         if(search_result) {
             axios({
                 method: 'get',
-                url: this.$base_url+`api/goods/doSearch?searchText=${search_result}&pageStart=0&pageSize=100`,
+                url: this.$base_url+`/api/goods/doSearch?searchText=${search_result}&pageStart=0&pageSize=100`,
             }).then((res) => {
                _this.goods = res.data.goods
                console.log(res)
@@ -160,7 +160,7 @@ export default {
         else{
             axios({
                 method: 'get',
-                url: this.$base_url+`api/goods/getGoodsByTypes?type=${catgory}&pageStart=0&pageSize=100`,
+                url: this.$base_url+`/api/goods/getGoodsByTypes?type=${catgory}&pageStart=0&pageSize=100`,
             }).then((res) => {
                _this.goods = res.data.goods
                console.log(res)
@@ -172,20 +172,6 @@ export default {
         EventBus.$on('submitSearch', this.refresh)
     },
     methods: {
-        getGoodsList: async (id) =>{
-            return goods
-        },
-        searchGoodsList: async (id) =>{
-            let _this=this
-            axios({
-                method: 'get',
-                url: this.$base_url+`api/goods/doSearch?searchText=${id}&pageStart=0&pageSize=100`,
-            }).then((res) => {
-                _this.goods = res.data.goods
-            }).catch((error) => {
-                console.error(error)
-            })
-        },
         toGoodPage(goodID)
         {
             this.$router.push({
