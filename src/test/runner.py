@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 import baseURL
 import pay
@@ -13,7 +14,10 @@ import goods
 # TestRunner run test.
 class TestRunner:
     def __init__(self, base_url, wait_time=5, close_after_exec=True):
-        self.__browser = webdriver.Chrome()
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+
+        self.__browser = webdriver.Chrome(options=chrome_options)
         self.__wait_time = wait_time
         self.__close_after_exec = close_after_exec
 
