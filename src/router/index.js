@@ -19,7 +19,8 @@ const routes = [
     //商品搜索展示
     path: '/goodslist',
     name: 'GoodsList',
-    component: () => import("../views/GoodsList")
+    component: () => import("../views/GoodsList"),
+    props: route => ({ query: route.query.q })
   },
   {
     // 商品详情页
