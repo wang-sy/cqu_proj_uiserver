@@ -110,9 +110,10 @@ export default {
          */
         async getGoodByID(id) {
             console.log("Get Data")
+            let _this = this;
             let data = await this.$axios({
                 method: 'GET',
-                url: this.$base_url + `/api/goods/getGoods?gid=${id}`
+                url: _this.$base_url + `api/goods/getGoods?gid=${id}`
             })
 
             return {    

@@ -73,7 +73,7 @@ export default {
         return
       }
       let _this = this
-      _this.$axios.post(this.$base_url + '/api/user/register', {
+      _this.$axios.post(this.$base_url + 'api/user/register', {
         phone: this.phone, password: this.password, username: this.uname, email: this.email, address: [this.address]
       })
       .then(function (response) {
