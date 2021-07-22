@@ -80,7 +80,7 @@ let list_completed = [
     statue:0,
   },
   {
-    name: 'Ant Design Title 1',
+    name: ['Ant Design Title 1'],
     description:"Fuck and Shit",
     goodID: 1,
     list_id: "12345",
@@ -88,7 +88,7 @@ let list_completed = [
     statue:1
   },
   {
-    name: 'ROG竞速3070显卡（吃鸡英雄联盟绝地求生）',
+    name: ['ROG竞速3070显卡（吃鸡英雄联盟绝地求生）'],
     description:"Fuck and Shit",
     goodID: 2,
     list_id: "12345",
@@ -98,7 +98,7 @@ let list_completed = [
 ]
 let list_incompleted = [
   {
-    name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
+    name: ['七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）'],
     description:"Fuck and Shit",
     goodID: 0,
     list_id: "12345",
@@ -106,7 +106,7 @@ let list_incompleted = [
     statue:3,
   },
   {
-    name: 'Ant Design Title 1',
+    name: ['Ant Design Title 1'],
     description:"Fuck and Shit",
     goodID: 1,
     list_id: "12345",
@@ -114,7 +114,7 @@ let list_incompleted = [
     statue:3
   },
   {
-    name: 'ROG竞速3070显卡（吃鸡英雄联盟绝地求生）',
+    name: ['ROG竞速3070显卡（吃鸡英雄联盟绝地求生）'],
     description:"Fuck and Shit",
     goodID: 2,
     list_id: "12345",

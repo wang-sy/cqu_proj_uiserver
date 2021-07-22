@@ -6,7 +6,7 @@
                     :id="item.id"
                     :name="item.name"
                     :description="item.description"
-                    :figure="'http://172.20.106.26:8081/'+item.figure"
+                    :figure="item.figure"
                     :price="item.price"
                     @click="toGoodPage(item.id)"
                 />
@@ -18,6 +18,8 @@
 <script>
 import GoodView from '../components/GoodView'
 import axios from 'axios';
+import { EventBus } from '../event-bus'
+
 
 let goods =[
     {
@@ -136,7 +138,8 @@ export default {
     },
     data() {
         return {
-            goods: []
+            goods: [],
+            isRouterAlive: true 
         }
     },
     mounted() {
@@ -144,15 +147,9 @@ export default {
         let catgory = this.$route.query.catgory
         let search_result = this.$route.query.searchid
         if(search_result) {
-            // this.searchGoodsList(search_result)
-            //     .then((data) => {
-            //         _this.goods = data
-            //     })
             axios({
                 method: 'get',
-                url: 'http://172.20.106.26:8081/api/goods/doSearch?searchText=rtx%203070&pageStart=0&pageSize=10',
-                type: 'json',
-                contentType: 'application/goods',
+                url: this.$base_url+`/api/goods/doSearch?searchText=${search_result}&pageStart=0&pageSize=100`,
             }).then((res) => {
                _this.goods = res.data.goods
                console.log(res)
@@ -161,29 +158,20 @@ export default {
             })
         }
         else{
-            this.getGoodsList(catgory)
-                .then((data) => {
-                    _this.goods = data
-                })
-        }
-    },
-    methods: {
-        getGoodsList: async (id) =>{
-            return goods
-        },
-        searchGoodsList: async (id) =>{
-            let _this=this
             axios({
                 method: 'get',
-                url: 'http://172.20.106.26:8081/api/goods/doSearch?searchText='+'rtx%203070&pageStart=0&pageSize=10',
-                type: 'json',
-                contentType: 'application/goods',
+                url: this.$base_url+`/api/goods/getGoodsByTypes?type=${catgory}&pageStart=0&pageSize=100`,
             }).then((res) => {
-                return res.goods
+               _this.goods = res.data.goods
+               console.log(res)
             }).catch((error) => {
                 console.error(error)
             })
-        },
+        }
+        EventBus.$off('submitSearch')
+        EventBus.$on('submitSearch', this.refresh)
+    },
+    methods: {
         toGoodPage(goodID)
         {
             this.$router.push({
@@ -192,6 +180,9 @@ export default {
                     id: goodID
                 } 
             })
+        },
+        refresh(){
+            this.$router.go(0);
         }
     }
 }
