@@ -6,7 +6,7 @@
                     :id="item.id"
                     :name="item.name"
                     :description="item.description"
-                    :figure="item.figure"
+                    :figure="'http://172.20.106.26:8081/'+item.figure"
                     :price="item.price"
                     @click="toGoodPage(item.id)"
                 />
@@ -17,6 +17,7 @@
 
 <script>
 import GoodView from '../components/GoodView'
+import axios from 'axios';
 
 let goods =[
     {
@@ -143,10 +144,21 @@ export default {
         let catgory = this.$route.query.catgory
         let search_result = this.$route.query.searchid
         if(search_result) {
-            this.searchGoodsList(search_result)
-                .then((data) => {
-                    _this.goods = data
-                })
+            // this.searchGoodsList(search_result)
+            //     .then((data) => {
+            //         _this.goods = data
+            //     })
+            axios({
+                method: 'get',
+                url: 'http://172.20.106.26:8081/api/goods/doSearch?searchText=rtx%203070&pageStart=0&pageSize=10',
+                type: 'json',
+                contentType: 'application/goods',
+            }).then((res) => {
+               _this.goods = res.data.goods
+               console.log(res)
+            }).catch((error) => {
+                console.error(error)
+            })
         }
         else{
             this.getGoodsList(catgory)
@@ -160,7 +172,17 @@ export default {
             return goods
         },
         searchGoodsList: async (id) =>{
-            return search
+            let _this=this
+            axios({
+                method: 'get',
+                url: 'http://172.20.106.26:8081/api/goods/doSearch?searchText='+'rtx%203070&pageStart=0&pageSize=10',
+                type: 'json',
+                contentType: 'application/goods',
+            }).then((res) => {
+                return res.goods
+            }).catch((error) => {
+                console.error(error)
+            })
         },
         toGoodPage(goodID)
         {
