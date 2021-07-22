@@ -33,6 +33,10 @@
 <script>
 import { EventBus } from '../event-bus'
 
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
 export default {
     model: {
         prop: 'collapsed',
@@ -53,11 +57,19 @@ export default {
     methods: {
       to_goods_list_page(category) {
         this.$router.push({
-          path: '/goodslist',
-          query: {
-            category: category
-          }
+          path: '/good?id=1',
         })
+
+        let _this = this
+        sleep(100).then(() => {
+          _this.$router.push({
+            path: '/goodslist',
+            query: {
+              category: category
+            }
+          })
+        })
+        
       },
       to_user(path) {
         this.choose = 'user'
