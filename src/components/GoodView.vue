@@ -52,6 +52,13 @@ export default {
                 totalPrice: this.price 
             }])
         }
+    },
+    mounted() {
+        if (this.description.length > 35) {
+            this.description = this.description.slice(0,35) + "..."
+        }
+
+        console.log(this.description, this.description.length)
     }
 }
 

@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 axios.defaults.withCredentials = true
 Vue.prototype.$event_bus = EventBus
 Vue.prototype.$axios = axios
-Vue.prototype.$base_url = 'http://localhost:8090'
+Vue.prototype.$base_url = 'http://114.116.213.123:8081'
 
 Vue.prototype.$submitOrder = function (goodsList) {
   EventBus.$emit('submitOrder', goodsList)
