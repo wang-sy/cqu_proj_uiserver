@@ -5,7 +5,7 @@
           <img src="../assets/logo.png" width="120%" @click="to_user('/')"/>
         </a-layout-sider>
         <a-layout-content style="margin-top: 0.5%; margin-left: 4%">
-         <a-menu mode="horizontal">
+         <a-menu v-model="seletedKeys" mode="horizontal">
 
            <a-menu-item key="1" @click="to_goods_list_page('vga')" style="font-size: 16px">显卡</a-menu-item>
            <a-menu-item key="2" @click="to_goods_list_page('memory')" style="font-size: 16px">内存</a-menu-item>
@@ -38,6 +38,11 @@ function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 export default {
+    watch: {
+      '$route' (val, old) {
+        this.updateKeyByURL(val)
+      }
+    },
     model: {
         prop: 'collapsed',
         event: 'changeMenu',
@@ -47,7 +52,8 @@ export default {
         choose: 'home',
         username: '未设置用户名',
         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        search_content: null
+        search_content: null,
+        seletedKeys: []
       }
     },
     props: {
@@ -59,7 +65,6 @@ export default {
         this.$router.push({
           path: '/good?id=1',
         })
-
         let _this = this
         sleep(100).then(() => {
           _this.$router.push({
@@ -69,7 +74,6 @@ export default {
             }
           })
         })
-        
       },
       to_user(path) {
         this.choose = 'user'
@@ -78,7 +82,32 @@ export default {
       to_search(path, search_content) {
         this.$router.push({ path: path, query: {searchid: search_content}})
         EventBus.$emit('submitSearch',this.to_search)
-      }
+      },
+      updateKeyByURL (newRoute) {
+        console.log("check", newRoute)
+        if (newRoute.path !== "/goodslist") {
+          this.seletedKeys = []
+          return
+        }
+        switch (newRoute.query.category) {
+          case "vga":
+            this.seletedKeys = ["1"]; console.log("update key to vga"); break
+          case "memory":
+            this.seletedKeys = ["2"]; console.log("update key to memory"); break
+          case "motherboard":
+            this.seletedKeys = ["3"]; console.log("update key to motherboard"); break
+          case "cpu":
+            this.seletedKeys = ["4"]; console.log("update key to cpu"); break
+          case "hard_drives":
+            this.seletedKeys = ["5"]; console.log("update key to hard_drives"); break
+          case "case":
+            this.seletedKeys = ["6"]; console.log("update key to case"); break
+          case "power":
+            this.seletedKeys = ["7"]; console.log("update key to power"); break
+          default:
+            this.seletedKeys = []; console.log("update key to none")
+        }
+      },
     },
     mounted() {
       let _this = this
@@ -94,6 +123,9 @@ export default {
       this.$event_bus.$on('login_success', (name, avatar_url) => {
         _this.username = name
         _this.avatar = avatar_url
+      })
+      sleep(100).then(()=> {
+        _this.updateKeyByURL(this.$route)
       })
     }
 }
