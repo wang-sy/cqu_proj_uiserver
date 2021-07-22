@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { EventBus } from '../event-bus'
 
 export default {
     model: {
@@ -48,6 +49,7 @@ export default {
       },
       to_search(path, search_content) {
         this.$router.push({ path: path, query: {searchid: search_content}})
+        EventBus.$emit('submitSearch',this.to_search)
       }
     },
     mounted() {
