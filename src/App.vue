@@ -1,6 +1,5 @@
 <template>
   <a-layout id="components-layout-demo-custom-trigger" class="page_container">
-    <Login></Login>
     <Register></Register>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0; height: 12%">
@@ -9,6 +8,8 @@
       <a-layout-content
         :style="{ margin: '10px 10px', padding: '10px', minHeight: '280px' }"
       >
+        <Login></Login>
+        <SubmitOrder></SubmitOrder>
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
@@ -19,12 +20,14 @@
 import TopBar from './components/TopBar'
 import Login from './components/Login'
 import Register from './components/Register'
+import SubmitOrder from './components/SubmitOrder.vue'
 
 export default {
   components: {
     TopBar,
     Login,
-    Register
+    Register,
+    SubmitOrder
   },
   data() {
     return {

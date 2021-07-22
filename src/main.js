@@ -11,6 +11,10 @@ Vue.prototype.$event_bus = EventBus
 Vue.prototype.$axios = axios
 Vue.prototype.$base_url = 'http://localhost:8090'
 
+Vue.prototype.$submitOrder = function (goodsList) {
+  EventBus.$emit('submitOrder', goodsList)
+}
+
 new Vue({
   router,
   render: h => h(App)

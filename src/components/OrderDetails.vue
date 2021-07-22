@@ -30,7 +30,7 @@
                     2020.2.2
                 </a-descriptions-item>
                 <a-descriptions-item label="商品信息">
-                    <a href="https://www.antdv.com/"> {{ list_data.name }} </a>
+                    <a @click="toGoodPage(list_data.goodID)"> {{ list_data.name }} </a>
                 </a-descriptions-item>
             </a-descriptions>
         </div>
@@ -51,6 +51,15 @@ export default {
     methods: {
         hidden() {
             this.$emit('hidden')
+        },
+        toGoodPage(goodID)
+        {
+            this.$router.push({
+                path: "/good",
+                query: {
+                    id: goodID
+                }
+            })          
         }
     }
 }

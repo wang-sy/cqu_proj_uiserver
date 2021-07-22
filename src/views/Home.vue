@@ -68,20 +68,24 @@ export default {
         return {
             top10Goods: [
                 {
-                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/hbs.jpeg', // img Src
+                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/AMD RADEON RX6000_v1.png', // img Src
                     id: 0 // goodID
                 },
                 {
-                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/nkx.jpeg',
+                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/ROG Strix 850W_v1.png',
                     id: 1
                 },
                 {
-                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/python.jpeg',
+                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/ROG case_v1.png',
                     id: 2
                 },
                 {
-                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/k8s.jpeg',
+                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/X570_v1.png',
                     id: 3
+                },
+                {
+                    src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/Z590_v1.png',
+                    id: 4
                 }
             ],
             categories: [
@@ -107,9 +111,9 @@ export default {
 <style scoped>
 
 .Carousel{
-    width: 90%;
+    width: 94%;
+    left: 3%;
     position: relative;
-    left: 5%;
 }
 
 .CategoryViewItem{
