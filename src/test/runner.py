@@ -15,6 +15,7 @@ import goods
 class TestRunner:
     def __init__(self, base_url, wait_time=5, close_after_exec=True):
         chrome_options = Options()
+        chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
 
