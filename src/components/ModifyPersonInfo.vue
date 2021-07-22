@@ -53,16 +53,17 @@ export default {
   },
   mounted() {
     this.$event_bus.$on('modify_person_info', ()=>{
-      this.visible = true
       let _this = this
       this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
+        if (response.data.code === -1) return
+        _this.visible = true
         _this.phone = response.data.data.phone
         _this.email = response.data.data.email
         _this.username = response.data.data.username
         _this.address = response.data.data.address
       }).catch(function (error) {
-        // alert('请先登录')
+        alert('请先登录')
       })
     })
   }

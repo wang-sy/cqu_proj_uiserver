@@ -39,7 +39,8 @@ export default {
           alert('登录失败，请重试')
         } else {
           _this.visible = false
-          _this.$event_bus.$emit('login_success', response.data.data.username)
+          _this.$event_bus.$emit('login_success', response.data.data.username,
+              'http://114.116.213.123:8081/' + response.data.data.avatar_url)
         }
       })
       .catch(function (error) {

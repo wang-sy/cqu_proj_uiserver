@@ -80,7 +80,7 @@ export default {
             _this.addresses.push({'address': addresses_[i]})
         }
       }).catch(function (error) {
-        // alert('请先登录')
+        alert('请先登录')
       })
     })
   }

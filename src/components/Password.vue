@@ -72,7 +72,14 @@ export default {
   },
   mounted() {
     this.$event_bus.$on('modify_password', ()=>{
-      this.visible = true
+      let _this = this
+      this.$axios.get(this.$base_url + '/user/getInfo')
+        .then(function (response) {
+        if (response.data.code === -1) return
+        _this.visible = true
+      }).catch(function (error) {
+        alert('请先登录')
+      })
     })
   },
 }

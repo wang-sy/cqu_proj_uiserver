@@ -3,7 +3,10 @@
     <Address></Address>
     <ModifyPersonInfo></ModifyPersonInfo>
     <Password></Password>
-    <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="width: 5%; height: 5%"/>
+    <a-upload style="display: inline" :show-upload-list='false'
+              :action="this.$base_url + '/user/uploadAvatar'" @change="upload_avatar" list-type="picture">
+      <a-avatar :src=avatar></a-avatar>
+    </a-upload>
     <div style="display: inline; font-size: 1.2em; margin-left: 2%">{{username}}</div>
     <a style="margin-left: 12%; font-size: 1.2em" @click="modify_person_info">更多信息</a>
     <a style="margin-left: 12%; font-size: 1.2em" @click="modify_address">收货地址</a>
@@ -26,7 +29,8 @@ export default {
   },
   data () {
     return {
-      username: '未设置用户名'
+      username: '未设置用户名',
+      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
     }
   },
   methods: {
@@ -38,6 +42,10 @@ export default {
     },
     modify_password: function () {
       this.$event_bus.$emit('modify_password')
+    },
+    upload_avatar: function (upload_info) {
+      console.log(upload_info)
+      // this.avatar = upload_info.file.file.response.data.avatar_url
     },
     logout: function () {
       let _this = this
@@ -52,7 +60,7 @@ export default {
         }
       })
       .catch(function (error) {
-        console.log(error)
+        alert('注销失败')
       })
     }
   },
@@ -61,14 +69,16 @@ export default {
     this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
           _this.username = response.data.data.username
+          _this.avatar = 'http://114.116.213.123:8081/' + response.data.data.avatar_url
       }).catch(function (error) {
         // alert('请先登录')
       })
     this.$event_bus.$on('update_username', (new_name) => {
       this.username = new_name
     })
-    this.$event_bus.$on('login_success', (name) => {
-        this.username = name
+    this.$event_bus.$on('login_success', (name, avatar_url) => {
+      this.username = name
+      this.avatar = avatar_url
     })
   }
 }
