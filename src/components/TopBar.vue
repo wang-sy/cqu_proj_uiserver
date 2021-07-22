@@ -15,13 +15,13 @@
            <a-menu-item key="6" @click="to_goods_list_page('case')" style="font-size: 16px">机箱</a-menu-item>
            <a-menu-item key="7" @click="to_goods_list_page('power')" style="font-size: 16px">电源</a-menu-item>
 
-            <a-popover style="margin-left: 27%; font-size: 16px">
+            <a-popover style="margin-left: 2%; font-size: 16px">
               <template slot="content">
                 <p>你好：{{username}}</p>
               </template>
               <a-avatar :src="avatar" style="width: 3.5%; height: 3.5%; margin-left: 50%; margin-bottom: 1%" @click="to_user('/user')"/>
             </a-popover>
-           <a-input-search placeholder="输入搜索内容" style="width: 15%; margin-left: 1%"
+           <a-input-search placeholder="输入搜索内容" style="width: 20%; margin-left: 1%"
                                         @search="to_search('/goodslist', search_content)" v-model="search_content"/>
           </a-menu>
         </a-layout-content>

@@ -35,23 +35,23 @@ export default {
             top10Goods: [
                 {
                     src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/AMD RADEON RX6000_v1.png', // img Src
-                    id: 0 // goodID
+                    id: 2 // goodID
                 },
                 {
                     src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/ROG Strix 850W_v1.png',
-                    id: 1
+                    id: 622
                 },
                 {
                     src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/ROG case_v1.png',
-                    id: 2
+                    id: 494
                 },
                 {
                     src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/X570_v1.png',
-                    id: 3
+                    id: 270
                 },
                 {
                     src: 'https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cqu/Z590_v1.png',
-                    id: 4
+                    id: 204
                 }
             ],
             categorieViews: [],
