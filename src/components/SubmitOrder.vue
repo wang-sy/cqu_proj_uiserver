@@ -101,10 +101,10 @@ export default {
             }
             
             console.log(goods)
-
+            let _this = this;
             let data = await this.$axios({
                 method: 'POST',
-                url: this.$base_url + '/api/order/addOrder',
+                url: _this.$base_url + 'api/order/addOrder',
                 data: {
                     goods: goods,
                     address: "重庆大学虎溪校区竹园四栋",

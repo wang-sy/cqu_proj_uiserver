@@ -51,7 +51,7 @@ export default {
       for (var i=0; i<this.addresses.length; i++) {
         addresses_.push(this.addresses[i].address)
       }
-      this.$axios.post(this.$base_url + '/api/user/updateInfo', {
+      this.$axios.post(this.$base_url + 'api/user/updateInfo', {
         username: this.username,
         email: this.email,
         address: addresses_
@@ -65,7 +65,7 @@ export default {
   mounted() {
     this.$event_bus.$on('modify_address', ()=>{
       let _this = this
-      this.$axios.get(this.$base_url + '/api/user/getInfo')
+      this.$axios.get(this.$base_url + 'api/user/getInfo')
         .then(function (response) {
           if (response.data.code === -1) {
             alert(response.data.msg)

@@ -50,7 +50,7 @@ export default {
       }
       let _this = this
       this.error = false
-      this.$axios.post(this.$base_url + '/user/updatePwd', {
+      this.$axios.post(this.$base_url + 'api/user/updatePwd', {
         oldPwd: this.old_password, newPwd: this.new_password
       })
       .then(function (response) {
@@ -73,7 +73,7 @@ export default {
   mounted() {
     this.$event_bus.$on('modify_password', ()=>{
       let _this = this
-      this.$axios.get(this.$base_url + '/user/getInfo')
+      this.$axios.get(this.$base_url + 'api/user/getInfo')
         .then(function (response) {
         if (response.data.code === -1) return
         _this.visible = true

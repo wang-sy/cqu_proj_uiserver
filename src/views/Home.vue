@@ -86,7 +86,7 @@ export default {
         async getCategoryGoods(name) {
             let data = await this.$axios({
                 method: 'GET',
-                url: this.$base_url + `/api/goods/getGoodsByTypes?type=${name}&pageStart=0&pageSize=4`
+                url: this.$base_url + `api/goods/getGoodsByTypes?type=${name}&pageStart=0&pageSize=4`
             })
             
             return {
