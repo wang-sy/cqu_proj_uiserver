@@ -56,6 +56,7 @@
                             <a-button
                                 style="background-color: rgb(252,238, 237); width: 100%"
                                 size="large"
+                                @click="addIntoShoppingCart"
                             > 加入购物车 </a-button>
                         </a-col>
                     </a-row>
@@ -141,6 +142,32 @@ export default {
                 number: this.number,
                 totalPrice: this.totalPrice 
             }])
+        },
+        addIntoShoppingCart() {
+            let shoppingCart = this.$getShoppingCart()
+
+            for (let index = 0; index < shoppingCart.length; index ++) {
+                if (shoppingCart[index].id == this.good.id) {
+                    shoppingCart[index].number += 1
+                    shoppingCart[index].totalPrice += shoppingCart[index].price
+                    shoppingCart[index].selected = true
+
+                    this.$setShoppingCart(shoppingCart)
+                    
+                    return
+                }
+            }
+
+            shoppingCart.push({
+                name: this.good.name,
+                description: this.good.desc,
+                figure: this.good.pics[0],
+                pricePerOne: this.good.price,
+                number: this.number,
+                selected: true,
+                id: this.good.id,
+            })
+            this.$setShoppingCart(shoppingCart)
         }
     }
 }

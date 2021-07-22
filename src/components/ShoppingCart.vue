@@ -118,16 +118,33 @@ export default {
             }
 
             item.totalPrice = item.number * item.pricePerOne
-            console.log(item.totalPrice)
+            this.$getShoppingCart(this.commoditys)
         },
         deleteItem(index) {
             this.commoditys.splice(index,1)
+            this.$setShoppingCart(this.commoditys)
         },
         updateSelected(item) {
             item.selected = !item.selected
+            this.$getShoppingCart(this.commoditys)
         },
         submit() {
-            this.$submitOrder(this.commoditys)
+            let selectedGoods = []
+            let newList = []
+
+            // 顺序扫描购物车, 删除已选项目
+            for (let i = 0; i < this.commoditys.length; i ++) {
+                if (this.commoditys[i].selected === true) {
+                    selectedGoods.push(this.commoditys[i])
+                } else {
+                    newList.push(this.commoditys[i])
+                }
+            }
+
+            this.commoditys = newList
+            this.$setShoppingCart(newList)
+
+            this.$submitOrder(selectedGoods)
         },
         toGoodPage(goodID) {
             this.$router.push({
@@ -140,6 +157,9 @@ export default {
     },
     // get prices.
     beforeMount() {
+        // load commoditys from localStorage
+        this.commoditys = this.$getShoppingCart()
+
         for (let i = 0; i < this.commoditys.length; i ++) {
             this.commoditys[i].totalPrice = this.commoditys[i].number * this.commoditys[i].pricePerOne
         }
