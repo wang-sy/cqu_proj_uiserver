@@ -92,6 +92,28 @@ export default {
             console.log("pay")
         },
         async initOrder() {
+            let goods = []
+            for (let i = 0; i < this.commoditys.length; i ++) {
+                goods.push({
+                    gid: this.commoditys[i].id,
+                    num: this.commoditys[i].number
+                })
+            }
+            
+            console.log(goods)
+
+            let data = await this.$axios({
+                method: 'POST',
+                url: this.$base_url + '/api/order/addOrder',
+                data: {
+                    goods: goods,
+                    address: "重庆大学虎溪校区竹园四栋",
+                    phone: "13969003119"
+                }
+            })
+            
+            console.log(data)
+
             return {
                 totalPrice: 1000,
                 id: 10000,

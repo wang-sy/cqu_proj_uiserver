@@ -4,7 +4,7 @@
     <ModifyPersonInfo></ModifyPersonInfo>
     <Password></Password>
     <a-upload style="display: inline" :show-upload-list='false'
-              :action="this.$base_url + '/user/uploadAvatar'" @change="upload_avatar" list-type="picture">
+              :action="this.$base_url + '/api/user/uploadAvatar'" @change="upload_avatar" list-type="picture">
       <a-avatar :src=avatar></a-avatar>
     </a-upload>
     <div style="display: inline; font-size: 1.2em; margin-left: 2%">{{username}}</div>
@@ -49,7 +49,7 @@ export default {
     },
     logout: function () {
       let _this = this
-      this.$axios.get(this.$base_url + '/user/logout')
+      this.$axios.get(this.$base_url + '/api/user/logout')
       .then(function (response) {
         if (response.data.code === 200) {
           _this.username = '未设置用户名'
@@ -66,7 +66,7 @@ export default {
   },
   mounted() {
     let _this = this
-    this.$axios.get(this.$base_url + '/user/getInfo')
+    this.$axios.get(this.$base_url + '/api/user/getInfo')
         .then(function (response) {
           _this.username = response.data.data.username
           _this.avatar = 'http://114.116.213.123:8081/' + response.data.data.avatar_url
