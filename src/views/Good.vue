@@ -48,6 +48,7 @@
                             <a-button
                                 style="width: 100%"
                                 size="large"
+                                @click="submitOrder"
                             > 立即购买 </a-button>
                         </a-col>
                         <a-col :span="1"> </a-col>
@@ -55,7 +56,7 @@
                             <a-button
                                 style="background-color: rgb(252,238, 237); width: 100%"
                                 size="large"
-                            > 立即购买 </a-button>
+                            > 加入购物车 </a-button>
                         </a-col>
                     </a-row>
                 </div></a-col>
@@ -109,7 +110,7 @@ export default {
          */
         getGoodByID: async (id) => {
             return {    
-                 id: 123,
+                id: 123,
                 name: "吉列威锋电竞I11超级嬉皮优",
                 desc: "女生自用，九成新，真的特别新，新的我快不行了，快，大哥来买了这张卡吧。这张卡我用的时候特别宝贵，他就像我爹一样，我对他特别好，求求你们买了吧。",
                 type: "cpu",
@@ -148,6 +149,17 @@ export default {
                 this.number = 0
             }
             this.totalPrice = this.number * this.good.price
+        },
+        submitOrder() {
+            this.$submitOrder([{
+                id: this.good.id,
+                name: this.good.name,
+                description: this.good.desc,
+                figure: this.good.pics[0],
+                pricePerOne: this.good.price,
+                number: this.number,
+                totalPrice: this.totalPrice 
+            }])
         }
     }
 }
