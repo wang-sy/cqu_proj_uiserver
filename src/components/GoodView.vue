@@ -11,7 +11,7 @@
                 <a @click="toGoodPage()">{{name}}</a>
             </template>
             <template slot="description">
-                {{description}}
+                {{desc}}
                 <a-row>
                     <a-col :span="12" style="margin-top: 8px"><b>{{price}} ¥</b></a-col>
                     <a-col :span="12">
@@ -31,6 +31,11 @@ export default {
         description: String,
         figure: String,
         price: Number
+    },
+    data() {
+        return {
+            desc: ""
+        }
     },
     methods: {
         toGoodPage() {
@@ -55,10 +60,10 @@ export default {
     },
     mounted() {
         if (this.description.length > 35) {
-            this.description = this.description.slice(0,35) + "..."
+            this.desc = this.description.slice(0,35) + "..."
         }
 
-        console.log(this.description, this.description.length)
+        console.log(this.desc, this.desc.length)
     }
 }
 
