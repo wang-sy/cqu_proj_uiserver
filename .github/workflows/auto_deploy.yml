@@ -32,5 +32,5 @@ jobs:
 
       - name: Deply To OSS
         run: |
-          ossutil rm oss://cqu-teapot/wespace/
+          ossutil rm -r oss://cqu-teapot/wespace/
           ossutil cp -r dist oss://cqu-teapot/wespace/
