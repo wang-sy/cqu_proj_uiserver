@@ -89,7 +89,8 @@ export default {
             })
         },
         handleSubmit() {
-            console.log("pay")
+            let baseURL = `http://${window.location.hostname}:${window.location.port}`
+            window.location.href = `${baseURL}/api/payment/toAlipay/${this.orderID}`
         },
         async initOrder() {
             let goods = []
@@ -111,12 +112,12 @@ export default {
                     phone: "13969003119"
                 }
             })
-            
+
             console.log(data)
 
             return {
-                totalPrice: 1000,
-                id: 10000,
+                totalPrice: data.data.data.price,
+                id: data.data.data.orderNum
             } 
         }
     }
