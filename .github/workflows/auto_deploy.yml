@@ -19,8 +19,23 @@ jobs:
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
       # TODO(ZhaoYingkai)
-      - name: auto ui-test
-        run: echo uitest
+      - name: SetUp UITest Environment
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo dpkg -i google-chrome-stable_current_amd64.deb
+          sudo apt-get install xvfb
+          sudo wget http://chromedriver.storage.googleapis.com/79.0.3945.88/chromedriver_linux64.zip
+          sudo apt-get install unzip -y
+          unzip chromedriver_linux64.zip
+          sudo mv -f chromedriver /usr/local/share/chromedriver
+          sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+          sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+          chromedriver --version
+          sudo apt-get install python3 -y
+          pip3 install selenium
+      
+      - name: Run UITest
+        run: python3 ./src/test/runner.py
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.3.0
