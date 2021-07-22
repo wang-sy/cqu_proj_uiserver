@@ -3,7 +3,6 @@ import {EventBus} from './event-bus'
 import axios from 'axios'
 import App from './App.vue'
 import router from './router'
-import { EventBus } from './event-bus'
 import './plugins/ant-design-vue.js'
 
 Vue.config.productionTip = false
