@@ -21,12 +21,14 @@ jobs:
         run: |
           npm install
           npm run build
-      
-      - name: deployment
-        shell: bash
-        env:
-          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
-        run: |
-          echo "$DEPLOY_KEY"
-          echo "$DEPLOY_KEY" > ./id_rsa
-          scp -P 222 -r -i ./id_rsa ./dist/* teapot@114.116.213.123:~/wwwroot/wespace/
+
+      - uses: manyuanrong/setup-ossutil@v1.0
+        with:
+          # endpoint 可以去oss控制台上查看
+          endpoint: "oss-cn-beijing.aliyuncs.com"
+          # 使用我们之前配置在secrets里面的accesskeys来配置ossutil
+          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
+          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
+
+      - name: Deply To OSS
+        run: ossutil cp -r ./dist/* oss://cqu-teapot/wespace/
