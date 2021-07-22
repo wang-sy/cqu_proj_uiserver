@@ -7,35 +7,6 @@
           class="Order_List"
           :loading="loading"
           item-layout="horizontal"
-          :data-source="list_completed"
-          >
-            <div
-              v-if="showLoadingMore_completed"
-              slot="loadMore"
-              :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
-            >
-              <a-spin v-if="loadingMore_completed" />
-              <a-button v-else @click="onLoadMore_list_completed">
-                加载更多
-              </a-button>
-            </div>
-            <a-list-item slot="renderItem" slot-scope="item, index">
-              <a slot="actions" @click="show_window(index, 1)">查看订单</a>
-              <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
-              <a-list-item-meta
-                :description="'描述:'+item.goods+' 总价格:￥'+item.Price"
-              >
-                <a slot="title" @click="show_window(index, 1)"> 订单:{{ item.orderNum }} </a>
-              </a-list-item-meta>
-              <div class="Word_Color">进行中</div>
-            </a-list-item>
-          </a-list>
-        </a-collapse-panel>
-        <a-collapse-panel key="2" header="已完成的订单" :disabled="false">
-          <a-list
-          class="Order_List"
-          :loading="loading"
-          item-layout="horizontal"
           :data-source="list_incompleted"
           >
             <div
@@ -50,11 +21,40 @@
             </div>
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a slot="actions" @click="show_window(index, 2)">查看订单</a>
-              <a slot="actions" @click="delete_list_incompleted(index)">删除订单</a>
+              <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
               <a-list-item-meta
-                :description="'描述:'+item.good+' 总价格:￥'+item.Price"
+                :description="'描述:'+getGoodsName(item.goods, 2)+' 总价格:￥'+item.price"
               >
                 <a slot="title" @click="show_window(index, 2)">{{ item.orderNum }}</a>
+              </a-list-item-meta>
+              <div class="Word_Color">进行中</div>
+            </a-list-item>
+          </a-list>
+        </a-collapse-panel>
+        <a-collapse-panel key="2" header="已完成的订单" :disabled="false">
+          <a-list
+          class="Order_List"
+          :loading="loading"
+          item-layout="horizontal"
+          :data-source="list_completed"
+          >
+            <div
+              v-if="showLoadingMore_completed"
+              slot="loadMore"
+              :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }"
+            >
+              <a-spin v-if="loadingMore_completed" />
+              <a-button v-else @click="onLoadMore_list_completed">
+                加载更多
+              </a-button>
+            </div>
+            <a-list-item slot="renderItem" slot-scope="item, index">
+              <a slot="actions" @click="show_window(index, 1)">查看订单</a>
+              <a slot="actions" @click="delete_list_incompleted(index)">删除订单</a>
+              <a-list-item-meta
+                :description="'描述:'+ getGoodsName(item.goods, 1) +' 总价格:￥'+item.price"
+              >
+                <a slot="title" @click="show_window(index, 1)"> 订单:{{ item.orderNum }} </a>
               </a-list-item-meta>
               <div>已完成</div>
             </a-list-item>
@@ -71,56 +71,104 @@ import axios from 'axios';
 import OrderDetails from './OrderDetails.vue'
 
 let list_completed = [
-  {
-    name: ['七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）','Ant Design Title 1'],
-    description:"Fuck and Shit",
-    goodID: [0, 1],
-    list_id: "12345",
-    totalPrice: 475,
-    statue:0,
-  },
-  {
-    name: ['Ant Design Title 1'],
-    description:"Fuck and Shit",
-    goodID: 1,
-    list_id: "12345",
-    totalPrice: 475,
-    statue:1
-  },
-  {
-    name: ['ROG竞速3070显卡（吃鸡英雄联盟绝地求生）'],
-    description:"Fuck and Shit",
-    goodID: 2,
-    list_id: "12345",
-    totalPrice: 475,
-    statue:2
-  },
+    {
+        "oid": 25,
+        "customerId": 333,
+        "goods": [
+            {
+                "gid": 1234,
+                "num": 4,
+                "name": "name"
+            },
+            {
+                "gid": 4567,
+                "num": 3,
+                "name": "name"
+            }
+        ],
+        "price": 70,
+        "time": "2021-07-21T02:52:06.000+00:00",
+        "status": 0,
+        "mailProvider": "中通快递",
+        "mailNumber": "KD403610184410202112",
+        "address": "重庆市沙坪坝区大学城重庆大学虎溪校区竹园四栋640",
+        "phone": "1322222222222",
+        "orderNum": "403610184410202113"
+    },
+    {
+        "oid": 26,
+        "customerId": 333,
+        "goods": [
+            {
+                "gid": 1234,
+                "num": 4,
+                "name": "name"
+            },
+            {
+                "gid": 4567,
+                "num": 3,
+                "name": "name"
+            }
+        ],
+        "price": 70,
+        "time": "2021-07-21T06:27:37.000+00:00",
+        "status": 0,
+        "mailProvider": "中通快递",
+        "mailNumber": "KD403664420749705216",
+        "address": "重庆市沙坪坝区大学城重庆大学虎溪校区竹园四栋326",
+        "phone": "1322222222222",
+        "orderNum": "403664420753899520"
+    }
 ]
 let list_incompleted = [
-  {
-    name: ['七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）'],
-    description:"Fuck and Shit",
-    goodID: 0,
-    list_id: "12345",
-    totalPrice: 475,
-    statue:3,
-  },
-  {
-    name: ['Ant Design Title 1'],
-    description:"Fuck and Shit",
-    goodID: 1,
-    list_id: "12345",
-    totalPrice: 475,
-    statue:3
-  },
-  {
-    name: ['ROG竞速3070显卡（吃鸡英雄联盟绝地求生）'],
-    description:"Fuck and Shit",
-    goodID: 2,
-    list_id: "12345",
-    totalPrice: 475,
-    statue:3
-  },
+    {
+        "oid": 25,
+        "customerId": 333,
+        "goods": [
+            {
+                "gid": 1234,
+                "num": 4,
+                "name": "name"
+            },
+            {
+                "gid": 4567,
+                "num": 3,
+                "name": "name"
+            }
+        ],
+        "price": 70,
+        "time": "2021-07-21T02:52:06.000+00:00",
+        "status": 0,
+        "mailProvider": "中通快递",
+        "mailNumber": "KD403610184410202112",
+        "address": "重庆市沙坪坝区大学城重庆大学虎溪校区竹园四栋640",
+        "phone": "1322222222222",
+        "orderNum": "403610184410202113"
+    },
+    {
+        "oid": 26,
+        "customerId": 333,
+        "goods": [
+            {
+                "gid": 1234,
+                "num": 4,
+                "name": "name"
+            },
+            {
+                "gid": 4567,
+                "num": 3,
+                "name": "name"
+            }
+        ],
+        "price": 70,
+        "time": "2021-07-21T06:27:37.000+00:00",
+        "status": 0,
+        "mailProvider": "中通快递",
+        "mailNumber": "KD403664420749705216",
+        "address": "重庆市沙坪坝区大学城重庆大学虎溪校区竹园四栋326",
+        "phone": "1322222222222",
+        "orderNum": "403664420753899520"
+    }
 ]
 
 export default {
@@ -194,7 +242,7 @@ export default {
     },
     onLoadMore_list_completed() {
       this.loadingMore_completed = true;
-      this.list_completed = this.list_completed.concat(list_completed);
+      // this.list_completed = this.list_completed.concat(list_completed);
       let _this=this
       axios({
         method: 'POST',
@@ -216,7 +264,8 @@ export default {
     },
     onLoadMore_list_incompleted() {
       this.loadingMore_incompleted = true;
-      this.list_incompleted = this.list_incompleted.concat(list_incompleted);
+      let _this=this 
+      // this.list_incompleted = this.list_incompleted.concat(list_incompleted);
       axios({
         method: 'POST',
         url: _this.$base_url+`/api/order/searchByCustomerIdUndo`,
@@ -230,6 +279,7 @@ export default {
         else {
           _this.showLoadingMore_incompleted = false
         }
+        
       }).catch((error) => {
         console.error(error)
       })
@@ -258,6 +308,20 @@ export default {
             id: goodID
         } 
       })
+    },
+    getGoodsName(data, i){
+      let res = ''
+      if(i == 1){
+        for(let i = 0; i < data.length; i ++) {
+          res = res + " " + data[i].name
+        }
+      }
+      else{
+        for(let i = 0; i < data.length; i ++) {
+          res = res + " " + data[i].name
+        }
+      }
+      return res
     }
   },
 };

@@ -1,7 +1,7 @@
 <template>
-    <a-modal v-model="show" :title="`订单: `+ list_data.list_id" :footer="null" width="50%">
+    <a-modal v-model="show" :title="`订单: `+ list_data.orderNum" :footer="null" width="50%">
         <div>
-            <a-steps :current="list_data.statue">
+            <a-steps :current="list_data.status">
                 <a-step title="待付款" />
                 <a-step title="待发货" />
                 <a-step title="运输中" />
@@ -21,20 +21,20 @@
                     {{ list_data.address }}
                 </a-descriptions-item>
                 <a-descriptions-item label="订单编号">
-                    {{ list_data.list_id }}
+                    {{ list_data.orderNum }}
                 </a-descriptions-item>
                 <a-descriptions-item label="订单价格">
-                    ￥{{ list_data.totalPrice }}
+                    ￥{{ list_data.price }}
                 </a-descriptions-item>
                 <a-descriptions-item label="创建时间">
                     {{ list_data.time }}
                 </a-descriptions-item>
                 <a-descriptions-item label="快递信息">
-                    {{ list_data.mailProvider }}
+                    {{ list_data.mailProvider }}  快递单号:{{ list_data.mailNumber }}
                 </a-descriptions-item>
                 <a-descriptions-item label="商品信息">
                     <a-col a-col v-for="(item, index) in list_data.goods" :key="index">
-                        <a @click="toGoodPage(list_data.good[index].gid)"> {{ list_data.good[index].name }} 数量:{{list_data.good[index].num}} </a>
+                        <a @click="toGoodPage(list_data.goods[index].gid)">商品名称:{{ list_data.goods[index].name }} 数量:{{list_data.goods[index].num}} </a>
                     </a-col>
                 </a-descriptions-item>
             </a-descriptions>
