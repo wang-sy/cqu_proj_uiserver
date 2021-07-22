@@ -10,7 +10,7 @@
             <!-- 分类展示 -->
 
         <a-card :bordered="false" style="margin-top: 24px">
-            <div v-for="(item, index) in categories" :key="index" class="CategoryViewItem">
+            <div v-for="(item, index) in categorieViews" :key="index" class="CategoryViewItem">
                 <CategoryView 
                     :title="item.name" 
                     :categoryID="item.id" 
@@ -24,41 +24,6 @@
 <script>
 
 import CategoryView from '../components/CategoryView'
-
-let categoryDatas = {
-    name: "家用电器",
-    id: 0,
-    goods: [
-        {
-            name: '七彩虹3070显卡',
-            description: "绝地求生、英雄联盟，高画质高帧率畅玩",
-            figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-            price: 47.5,
-            id: 0,
-        },
-        {
-            name: '七彩虹3070显卡',
-            description: "绝地求生、英雄联盟，高画质高帧率畅玩",
-            figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-            price: 47.5,
-            id: 1,
-        },
-        {
-            name: '七彩虹3070显卡',
-            description: "绝地求生、英雄联盟，高画质高帧率畅玩",
-            figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-            price: 47.5,
-            id: 2,
-        },
-        {
-            name: '七彩虹3070显卡',
-            description: "绝地求生、英雄联盟，高画质高帧率畅玩",
-            figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-            price: 47.5,
-            id: 3,
-        }
-    ],
-}
 
 export default {
     components: {
@@ -88,10 +53,25 @@ export default {
                     id: 4
                 }
             ],
+            categorieViews: [],
             categories: [
-                categoryDatas,
-                categoryDatas
+                "vga",
+                "memory",
+                "motherboard",
+                "cpu",
+                "hard_drives",
+                "case",
+                "power"
             ],
+            categoriesName: {
+                "vga": "显卡",
+                "memory": "内存",
+                "motherboard": "主板",
+                "cpu": "处理器",
+                "hard_drives": "硬盘",
+                "case": "机箱",
+                "power": "电源" 
+            }
         }
     },
     methods: {
@@ -102,7 +82,28 @@ export default {
                     id: goodID
                 } 
             })
+        },
+        async getCategoryGoods(name) {
+            let data = await this.$axios({
+                method: 'GET',
+                url: this.$base_url + `/api/goods/getGoodsByTypes?type=${name}&pageStart=0&pageSize=4`
+            })
+            
+            return {
+                id: data.data.name,
+                name: this.categoriesName[data.data.name],
+                goods: data.data.goods
+            }
         }
+    },
+    async mounted() {
+        let categoryViews = []
+        for( let i = 0; i < this.categories.length; i ++ ) {
+            let categoryView = await this.getCategoryGoods(this.categories[i])
+            categoryViews.push(categoryView)
+        }
+
+        this.categorieViews = categoryViews
     }
 }
 

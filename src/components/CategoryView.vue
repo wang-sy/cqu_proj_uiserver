@@ -28,7 +28,7 @@ export default {
     },
     props: {
         title: String,
-        categoryID: Number,
+        categoryID: String,
         goods: Array
     },
     methods: {
