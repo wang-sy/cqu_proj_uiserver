@@ -8,6 +8,7 @@
                     :description="item.description"
                     :figure="item.figure"
                     :price="item.price"
+                    @click="toGoodPage(item.id)"
                 />
             </a-col>
         </a-row>
@@ -160,6 +161,15 @@ export default {
         },
         searchGoodsList: async (id) =>{
             return search
+        },
+        toGoodPage(goodID)
+        {
+            this.$router.push({
+                path: "/good",
+                query: {
+                    id: goodID
+                } 
+            })
         }
     }
 }

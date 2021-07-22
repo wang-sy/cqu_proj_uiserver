@@ -25,7 +25,7 @@
               <a-list-item-meta
                 :description="'描述:'+item.description+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
               >
-                <a slot="title" href="https://www.antdv.com/">{{ item.name }}</a>
+                <a slot="title" @click="toGoodPage(item.goodID)">{{ item.name }}</a>
               </a-list-item-meta>
               <div class="Word_Color">进行中</div>
             </a-list-item>
@@ -54,7 +54,7 @@
               <a-list-item-meta
                 :description="'描述:'+item.description+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
               >
-                <a slot="title" href="https://www.antdv.com/">{{ item.name }}</a>
+                <a slot="title" @click="toGoodPage(item.goodID)">{{ item.name }}</a>
               </a-list-item-meta>
               <div>已完成</div>
             </a-list-item>
@@ -74,13 +74,15 @@ let list_completed = [
   {
     name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
     description:"Fuck and Shit",
+    goodID: 0,
     list_id: "12345",
     totalPrice: 475,
-    statue:1,
+    statue:0,
   },
   {
     name: 'Ant Design Title 1',
     description:"Fuck and Shit",
+    goodID: 1,
     list_id: "12345",
     totalPrice: 475,
     statue:1
@@ -88,43 +90,25 @@ let list_completed = [
   {
     name: 'ROG竞速3070显卡（吃鸡英雄联盟绝地求生）',
     description:"Fuck and Shit",
+    goodID: 2,
     list_id: "12345",
     totalPrice: 475,
-    statue:1
-  },
-  {
-    name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
-    description:"Fuck and Shit",
-    list_id: "12345",
-    totalPrice: 475,
-    statue:1,
-  },
-  {
-    name: 'Ant Design Title 1',
-    description:"Fuck and Shit",
-    list_id: "12345",
-    totalPrice: 475,
-    statue:1
-  },
-  {
-    name: 'ROG竞速3070显卡（吃鸡英雄联盟绝地求生）',
-    description:"Fuck and Shit",
-    list_id: "12345",
-    totalPrice: 475,
-    statue:1
+    statue:2
   },
 ]
 let list_incompleted = [
   {
     name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
     description:"Fuck and Shit",
+    goodID: 0,
     list_id: "12345",
     totalPrice: 475,
-    statue:3
+    statue:3,
   },
   {
     name: 'Ant Design Title 1',
     description:"Fuck and Shit",
+    goodID: 1,
     list_id: "12345",
     totalPrice: 475,
     statue:3
@@ -132,10 +116,11 @@ let list_incompleted = [
   {
     name: 'ROG竞速3070显卡（吃鸡英雄联盟绝地求生）',
     description:"Fuck and Shit",
+    goodID: 2,
     list_id: "12345",
     totalPrice: 475,
     statue:3
-  }
+  },
 ]
 
 export default {
@@ -261,6 +246,14 @@ export default {
         this.cur_list_data = this.list_completed[index]
       else
         this.cur_list_data = this.list_incompleted[index]
+    },
+    toGoodPage(goodID){
+      this.$router.push({
+        path: "/good",
+        query: {
+            id: goodID
+        } 
+      })
     }
   },
 };
