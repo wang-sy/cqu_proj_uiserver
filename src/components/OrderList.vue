@@ -23,9 +23,9 @@
               <a slot="actions" @click="show_window(index, 1)">查看订单</a>
               <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
               <a-list-item-meta
-                :description="'描述:'+item.description+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
+                :description="'描述:'+item.name+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
               >
-                <a slot="title" @click="toGoodPage(item.goodID)">{{ item.name }}</a>
+                <a slot="title" @click="toGoodPage(item.goodID)"> 订单:{{ item.list_id }} </a>
               </a-list-item-meta>
               <div class="Word_Color">进行中</div>
             </a-list-item>
@@ -72,9 +72,9 @@ import OrderDetails from './OrderDetails.vue'
 
 let list_completed = [
   {
-    name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
+    name: ['七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）','Ant Design Title 1'],
     description:"Fuck and Shit",
-    goodID: 0,
+    goodID: [0, 1],
     list_id: "12345",
     totalPrice: 475,
     statue:0,

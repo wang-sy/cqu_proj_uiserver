@@ -30,7 +30,9 @@
                     2020.2.2
                 </a-descriptions-item>
                 <a-descriptions-item label="商品信息">
-                    <a @click="toGoodPage(list_data.goodID)"> {{ list_data.name }} </a>
+                    <a-col a-col v-for="(item, index) in list_data.name" :key="index">
+                        <a @click="toGoodPage(list_data.goodID[index])"> {{ list_data.name[index] }} </a>
+                    </a-col>
                 </a-descriptions-item>
             </a-descriptions>
         </div>
