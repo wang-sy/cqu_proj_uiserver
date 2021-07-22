@@ -1,6 +1,5 @@
 <template>
   <a-layout id="components-layout-demo-custom-trigger" class="page_container">
-    <Login></Login>
     <Register></Register>
     <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
       <sider-menu></sider-menu>
@@ -12,6 +11,8 @@
       <a-layout-content
         :style="{ margin: '10px 10px', padding: '10px', minHeight: '280px' }"
       >
+        <Login></Login>
+        <SubmitOrder></SubmitOrder>
         <router-view></router-view>
       </a-layout-content>
     </a-layout>
@@ -23,13 +24,15 @@ import SiderMenu from './components/SiderMenu'
 import TopBar from './components/TopBar'
 import Login from './components/Login'
 import Register from './components/Register'
+import SubmitOrder from './components/SubmitOrder.vue'
 
 export default {
   components: {
     SiderMenu,
     TopBar,
     Login,
-    Register
+    Register,
+    SubmitOrder
   },
   data() {
     return {

@@ -42,7 +42,15 @@ export default {
             })
         },
         buy() {
-            console.log(this.id)
+            this.$submitOrder([{
+                id: this.id,
+                name: this.name,
+                description: this.description,
+                figure: this.figure,
+                pricePerOne: this.price,
+                number: 1,
+                totalPrice: this.price 
+            }])
         }
     }
 }

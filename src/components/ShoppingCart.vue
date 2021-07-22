@@ -5,7 +5,7 @@
                 slot="renderItem"
                 slot-scope="item, index"
                 :style=" item.selected ?
-                'background-color: #f9f9f9f9' : ''"
+                'background-color: #fbfbfb' : ''"
             >
                 <div style="width: 5%">
                     ·
@@ -17,7 +17,7 @@
                     >
                         <a
                             slot="title"
-                            href="https://www.antdv.com/"
+                            @click="toGoodPage(item.id)"
                             style="font-size: 1.2em"
                         >
                             {{ item.name }}
@@ -25,17 +25,18 @@
                         <img
                             slot="avatar"
                             :src="item.figure"
+                            @click="toGoodPage(item.id)"
                             style="width: 110px; height: 82px;"
                         />
                     </a-list-item-meta>
                 </div>
                 <div style="width: 30%">
                     <!-- price -->
-                    <h3 style="font-size: 0.5em">
+                    <h3 style="font-size: 1em">
                         单价：¥ {{ item.pricePerOne }}
                     </h3>
                     <!-- counter -->
-                    <h3 style="font-size: 0.5em">
+                    <h3 style="font-size: 1em">
                         数量：
                         <a-input
                             style="width: 20%"
@@ -44,7 +45,7 @@
                             @change="changeNumber(item)"
                         />
                     </h3>
-                    <h3 style="font-size: 0.5em">
+                    <h3 style="font-size: 1em">
                         总价：¥ {{ item.totalPrice }}
                     </h3>
                 </div>
@@ -63,34 +64,17 @@
 </template>
 
 <script>
+import { EventBus } from '../event-bus';
 
 let commoditys = [
   {
     name: '七彩虹吉列威锋竞速3070显卡（吃鸡英雄联盟绝地求生）',
     description: "Fuck and Shit",
-    href: "https://www.baidu.com",
     figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
     pricePerOne: 47.5,
     number: 10,
     selected: true,
-  },
-  {
-    name: 'Ant Design Title 1',
-    description: "Fuck and Shit",
-    href: "https://www.baidu.com",
-    figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-    pricePerOne: 47.5,
-    number: 10,
-    selected: true,
-  },
-  {
-    name: 'Ant Design Title 1',
-    description: "Fuck and Shit",
-    href: "https://www.baidu.com",
-    figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
-    pricePerOne: 47.5,
-    number: 10,
-    selected: true,
+    id: 0,
   },
   {
     name: 'Ant Design Title 1',
@@ -99,6 +83,25 @@ let commoditys = [
     pricePerOne: 47.5,
     number: 10,
     selected: true,
+    id: 0,
+  },
+  {
+    name: 'Ant Design Title 1',
+    description: "Fuck and Shit",
+    figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
+    pricePerOne: 47.5,
+    number: 10,
+    selected: true,
+    id: 0,
+  },
+  {
+    name: 'Ant Design Title 1',
+    description: "Fuck and Shit",
+    figure: "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/8B53F293163383A5FBBDEAFC9EFED387.jpg",
+    pricePerOne: 47.5,
+    number: 10,
+    selected: true,
+    id: 0,
   },
 ];
 
@@ -121,11 +124,18 @@ export default {
             this.commoditys.splice(index,1)
         },
         updateSelected(item) {
-            console.log(item)
             item.selected = !item.selected
         },
         submit() {
-            console.log(this.commoditys)
+            this.$submitOrder(this.commoditys)
+        },
+        toGoodPage(goodID) {
+            this.$router.push({
+                path: "/good",
+                query: {
+                    id: goodID
+                } 
+            })
         }
     },
     // get prices.
