@@ -18,20 +18,14 @@ jobs:
           access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
 
-      # TODO(ZhaoYingkai)
-      - name: SetUp UITest Environment
+      # TODO(ZhaoYingkai=
+      - uses: nanasess/setup-chromedriver@master
+      
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+
+      - name: SetUp Python
         run: |
-          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo dpkg -i google-chrome-stable_current_amd64.deb
-          sudo apt-get install xvfb
-          sudo wget http://chromedriver.storage.googleapis.com/79.0.3945.88/chromedriver_linux64.zip
-          sudo apt-get install unzip -y
-          unzip chromedriver_linux64.zip
-          sudo mv -f chromedriver /usr/local/share/chromedriver
-          sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-          sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
-          chromedriver --version
-          sudo apt-get install python3 -y
           pip3 install selenium
       
       - name: Run UITest
