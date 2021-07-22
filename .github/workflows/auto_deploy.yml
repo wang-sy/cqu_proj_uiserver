@@ -31,4 +31,4 @@ jobs:
           npm run build
 
       - name: Deply To OSS
-        run: ossutil cp -r ./dist/* oss://cqu-teapot/wespace/
+        run: ossutil cp -r dist oss://cqu-teapot/wespace/
