@@ -1,12 +1,21 @@
 <template>
-    <main>
-      <a-icon class="trigger" type="home"  :theme="choose === 'home' ? 'twoTone' : 'outlined'" @click="to_home('/')" style="margin-left: 4%; font-size: 32px"/>
-      <a-icon class="trigger" type="smile" :theme="choose === 'home' ? 'outlined' : 'twoTone'" @click="to_user('/user')" style="font-size: 32px"/>
-      <a-input-search placeholder="input search text" enter-button style="width: 40%; margin-top: 1.2%; margin-left: 15%"
-                      @search="to_search('/goodslist', search_content)" v-model="search_content"/>
-      <div style="display: inline; font-size: 1.2em; float: right; margin-right: 8%">{{username}}</div>
-      <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="width: 4%; height: 4%; margin-bottom: 2%; float: right"/>
-    </main>
+    <div>
+      <div>
+       <a-menu mode="horizontal" :default-selected-keys="['1']" style="margin-left: 5%">
+          <a-menu-item key="1" @click="to_user('/')"> <a-icon type="home"/>主页</a-menu-item>
+          <a-menu-item key="2" @click="to_user('/user')"> <a-icon type="user"/>我的</a-menu-item>
+          <a-input-search placeholder="输入搜索内容" style="width: 30%; margin-left: 18%"
+                          @search="to_search('/goodslist', search_content)" v-model="search_content"/>
+          <a-avatar :src="avatar" style="width: 3.5%; height: 3.5%; margin-left: 18%; margin-bottom: 0.1%"/>
+          <a-popover style="margin-left: 1%">
+            <template slot="content">
+              <p>你好：{{username}}</p>
+            </template>
+            <a-button style="border: white">{{username}}</a-button>
+          </a-popover>
+        </a-menu>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -20,6 +29,7 @@ export default {
       return {
         choose: 'home',
         username: '未设置用户名',
+        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
         search_content: null
       }
     },
@@ -45,13 +55,15 @@ export default {
       this.$axios.get(this.$base_url + '/user/getInfo')
         .then(function (response) {
           _this.username = response.data.data.username
+          _this.avatar = 'http://114.116.213.123:8081/' + response.data.data.avatar_url
         }).catch(function (error) {
       })
       this.$event_bus.$on('update_username', (new_name) => {
         _this.username = new_name
       })
-      this.$event_bus.$on('login_success', (name) => {
+      this.$event_bus.$on('login_success', (name, avatar_url) => {
         _this.username = name
+        _this.avatar = avatar_url
       })
     }
 }
