@@ -7,7 +7,7 @@
                 <a-col :span="10"><a-card style="width: 100%">
                     <a-carousel autoplay arrows>
                         <div v-for="(item, index) in good.pics" :key="index">
-                            <img style="width: 100%" :src="item"/>
+                            <img style="width: 100%; height: 50vh" :src="item"/>
                         </div>
                     </a-carousel>
                 </a-card></a-col>
@@ -70,7 +70,7 @@
                     <a-card style="text-align: center">
                     <p style="font-size: 1.2em; color: #808080;"> {{cKey}} </p>
                     <div v-for="featureValue, featureKey, fIndex in cValue" :key="fIndex">
-                        <a-row>
+                        <a-row v-if="featureValue.length < 20">
                             <a-col :span="12" style="background-color: #fdfdfd;">
                                 {{featureKey}}
                             </a-col>
@@ -108,40 +108,21 @@ export default {
         /**
          * get good by googID
          */
-        getGoodByID: async (id) => {
+        async getGoodByID(id) {
+            console.log("Get Data")
+            let data = await this.$axios({
+                method: 'GET',
+                url: this.$base_url + `/api/goods/getGoods?gid=${id}`
+            })
+
             return {    
-                id: 123,
-                name: "吉列威锋电竞I11超级嬉皮优",
-                desc: "女生自用，九成新，真的特别新，新的我快不行了，快，大哥来买了这张卡吧。这张卡我用的时候特别宝贵，他就像我爹一样，我对他特别好，求求你们买了吧。",
-                type: "cpu",
-                price: 2333,
-                pics: [
-                    "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/cpu.jpg",
-                    "https://saiyuwang-blog.oss-cn-beijing.aliyuncs.com/ssd.jpg"
-                ],
-                params: {
-                    "基本参数":{
-                        "适用类型":"台式机",
-                        "CPU系列":"Ryzen 3",
-                        "制作工艺":"12纳米",
-                        "CPU架构":"Zen+",
-                        "插槽类型":"Socket AM4",
-                        "包装形式":"盒装"
-                    },
-                    "性能参数":{
-                        "CPU主频":"3.6GHz",
-                        "动态加速频率":"4GHz",
-                        "核心数量":"四核心",
-                        "线程数量":"四线程",
-                        "热设计功耗(TDP)":"65W"
-                    },
-                    "内存参数":{
-                        "内存类型":"DDR4 2933MHz"
-                    },
-                    "显卡参数":{
-                        "集成显卡":"Radeon Vega 8 Processor Graphics"
-                    }
-                }
+                id: data.data.gid,
+                name: data.data.name,
+                desc: data.data.desc,
+                type: data.data.type,
+                price: data.data.price,
+                pics: data.data.pic_groups,
+                params: data.data.good_params
             }
         },
         updateNumber() {
