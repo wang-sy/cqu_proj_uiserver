@@ -12,13 +12,13 @@
         <div style="margin-top: 24px">
             <a-descriptions>
                 <a-descriptions-item label="收件人">
-                    Zhou Maomao
+                    {{ list_data.customerId }}
                 </a-descriptions-item>
                 <a-descriptions-item label="联系方式">
-                    1810000000
+                    {{ list_data.phone }}
                 </a-descriptions-item>
                 <a-descriptions-item label="收件地址">
-                    Hangzhou, Zhejiang
+                    {{ list_data.address }}
                 </a-descriptions-item>
                 <a-descriptions-item label="订单编号">
                     {{ list_data.list_id }}
@@ -27,11 +27,14 @@
                     ￥{{ list_data.totalPrice }}
                 </a-descriptions-item>
                 <a-descriptions-item label="创建时间">
-                    2020.2.2
+                    {{ list_data.time }}
+                </a-descriptions-item>
+                <a-descriptions-item label="快递信息">
+                    {{ list_data.mailProvider }}
                 </a-descriptions-item>
                 <a-descriptions-item label="商品信息">
-                    <a-col a-col v-for="(item, index) in list_data.name" :key="index">
-                        <a @click="toGoodPage(list_data.goodID[index])"> {{ list_data.name[index] }} </a>
+                    <a-col a-col v-for="(item, index) in list_data.goods" :key="index">
+                        <a @click="toGoodPage(list_data.good[index].gid)"> {{ list_data.good[index].name }} 数量:{{list_data.good[index].num}} </a>
                     </a-col>
                 </a-descriptions-item>
             </a-descriptions>

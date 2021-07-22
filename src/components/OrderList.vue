@@ -23,9 +23,9 @@
               <a slot="actions" @click="show_window(index, 1)">查看订单</a>
               <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
               <a-list-item-meta
-                :description="'描述:'+item.name+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
+                :description="'描述:'+item.goods+' 总价格:￥'+item.Price"
               >
-                <a slot="title" @click="toGoodPage(item.goodID)"> 订单:{{ item.list_id }} </a>
+                <a slot="title" @click="show_window(index, 1)"> 订单:{{ item.orderNum }} </a>
               </a-list-item-meta>
               <div class="Word_Color">进行中</div>
             </a-list-item>
@@ -52,9 +52,9 @@
               <a slot="actions" @click="show_window(index, 2)">查看订单</a>
               <a slot="actions" @click="delete_list_incompleted(index)">删除订单</a>
               <a-list-item-meta
-                :description="'描述:'+item.description+' 总价格:￥'+item.totalPrice+' 订单编号:'+item.list_id"
+                :description="'描述:'+item.good+' 总价格:￥'+item.Price"
               >
-                <a slot="title" @click="toGoodPage(item.goodID)">{{ item.name }}</a>
+                <a slot="title" @click="show_window(index, 2)">{{ item.orderNum }}</a>
               </a-list-item-meta>
               <div>已完成</div>
             </a-list-item>
@@ -129,10 +129,10 @@ export default {
       loading: true,
       loadingMore_completed: false,
       loadingMore_incompleted: false,
-      showLoadingMore_completed: true,
-      showLoadingMore_incompleted: true,
-      list_completed: list_completed,
-      list_incompleted: list_incompleted,
+      showLoadingMore_completed: false,
+      showLoadingMore_incompleted: false,
+      list_completed: [],
+      list_incompleted: [],
       now_page_completed: 1,
       now_page_incompleted: 1,
       activeKey: 1,
@@ -157,11 +157,12 @@ export default {
     this.loading = false
   },
   methods: {
-    init: async() => {
+    async init() {
       let _this=this
       axios({
-        method: 'get',
-        url: '',
+        method: 'POST',
+        url: this.$base_url + `/api/order/searchByCustomerIdDo`,
+        data: {}
       }).then((res) => {
         if(res.data.length <= 5){
           _this.list_completed = res.data
@@ -175,8 +176,9 @@ export default {
         console.error(error)
       })
       axios({
-        method: 'get',
-        url: '',
+        method: 'POST',
+        url: _this.$base_url + `/api/order/searchByCustomerIdUndo`,
+        data: {}
       }).then((res) => {
         if(res.data.length <= 5){
           _this.list_incompleted = res.data
@@ -195,8 +197,9 @@ export default {
       this.list_completed = this.list_completed.concat(list_completed);
       let _this=this
       axios({
-        method: 'get',
-        url: '',
+        method: 'POST',
+        url: _this.$base_url+`/api/order/searchByCustomerIdDo`,
+        data: {}
       }).then((res) => {
         _this.list_completed = _this.list_completed.concat(res.data.slice(_this.now_page_completed*5, (_this.now_page_completed+1)*5))
         _this.now_page_completed++
@@ -215,8 +218,9 @@ export default {
       this.loadingMore_incompleted = true;
       this.list_incompleted = this.list_incompleted.concat(list_incompleted);
       axios({
-        method: 'get',
-        url: '',
+        method: 'POST',
+        url: _this.$base_url+`/api/order/searchByCustomerIdUndo`,
+        data: {}
       }).then((res) => {
         _this.list_incompleted = _this.list_incompleted.concat(res.data.slice(_this.now_page_incompleted*5, (_this.now_page_incompleted+1)*5))
         _this.now_page_incompleted++
@@ -261,7 +265,7 @@ export default {
 
 <style>
 .Order_List {
-  min-height: 300px;
+  min-height: 100px;
 }
 .Word_Color{
   color: rgb(37, 133, 223)
