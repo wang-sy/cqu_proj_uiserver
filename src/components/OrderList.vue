@@ -21,7 +21,7 @@
             </div>
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a slot="actions" @click="show_window(index, 2)">查看订单</a>
-              <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
+              <a slot="actions" @click="delete_list_incompleted(index)">删除订单</a>
               <a-list-item-meta
                 :description="'描述:'+getGoodsName(item.goods, 2)+' 总价格:￥'+item.price"
               >
@@ -50,7 +50,7 @@
             </div>
             <a-list-item slot="renderItem" slot-scope="item, index">
               <a slot="actions" @click="show_window(index, 1)">查看订单</a>
-              <a slot="actions" @click="delete_list_incompleted(index)">删除订单</a>
+              <a slot="actions" @click="delete_list_completed(index)">删除订单</a>
               <a-list-item-meta
                 :description="'描述:'+ getGoodsName(item.goods, 1) +' 总价格:￥'+item.price"
               >
@@ -285,11 +285,35 @@ export default {
       })
       this.loadingMore_incompleted = false;
     },
-    delete_list_completed(index){
-      this.list_completed.splice(index,1)
+delete_list_completed(index) {
+      let curOrder = this.list_completed[index];
+      let _this = this;
+      axios({
+        method: "POST",
+        url: _this.$base_url + `api/order/delOrder`,
+        data: { orderNum: curOrder.orderNum },
+      })
+        .then((res) => {
+          if (res.code == 200) this.list_completed.splice(index, 1);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
-    delete_list_incompleted(index){
-      this.list_incompleted.splice(index,1)
+    delete_list_incompleted(index) {
+      let curOrder = this.list_completed[index];
+      let _this = this;
+      axios({
+        method: "POST",
+        url: _this.$base_url + `api/order/delOrder`,
+        data: { orderNum: curOrder.orderNum },
+      })
+        .then((res) => {
+          if (res.code == 200) this.list_incompleted.splice(index, 1);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
     hide_window() {
       this.show = false
