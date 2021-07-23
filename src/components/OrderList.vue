@@ -301,7 +301,7 @@ delete_list_completed(index) {
         });
     },
     delete_list_incompleted(index) {
-      let curOrder = this.list_completed[index];
+      let curOrder = this.list_incompleted[index];
       let _this = this;
       axios({
         method: "POST",
