@@ -294,7 +294,8 @@ delete_list_completed(index) {
         data: { orderNum: curOrder.orderNum },
       })
         .then((res) => {
-          if (res.code == 200) this.list_completed.splice(index, 1);
+          if (res.data.code == 200) this.list_completed.splice(index, 1);
+           else alert("删除订单失败")
         })
         .catch((error) => {
           console.error(error);
@@ -309,7 +310,8 @@ delete_list_completed(index) {
         data: { orderNum: curOrder.orderNum },
       })
         .then((res) => {
-          if (res.code == 200) this.list_incompleted.splice(index, 1);
+          if (res.data.code == 200) this.list_incompleted.splice(index, 1);
+          else alert("删除订单失败")
         })
         .catch((error) => {
           console.error(error);
